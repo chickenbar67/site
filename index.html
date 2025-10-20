@@ -108,12 +108,44 @@
     footer{border-top:1px solid #1f1f1f; color:var(--muted); padding:26px 0; font-size:.95rem}
 
     /* Responsive */
-    @media (max-width:540px){
-      .brand img{width:88px; height:88px}
-      .brand h1{font-size:1.05rem}
-      .hero h2{font-size:1.7rem}
-      body{background-size:360px; background-position:center 140px}
-    }
+   /* ====== MOBILE : tout du même côté, propre ====== */
+@media (max-width: 540px){
+  /* Le header passe en colonne, aligné à gauche */
+  .topbar{flex-direction:column; align-items:flex-start; gap:12px}
+
+  /* Bloc brand (logo + titre) plus compact */
+  .brand{gap:10px}
+  .brand img{width:88px; height:88px}
+  .brand h1{font-size:1.05rem}
+
+  /* Les liens Localisation / Partenaires deviennent des "pills" comme les boutons */
+  .brand-left{
+    order:2;              /* s'affiche sous le logo */
+    display:flex; gap:8px; flex-wrap:wrap;
+  }
+  .brand-left .link-left{
+    display:inline-block;
+    padding:8px 12px;
+    border-radius:999px;
+    font-weight:600;
+    font-size:.9rem;
+    text-decoration:none;
+    background:#161616;
+    border:1px solid #2a2a2a;
+  }
+
+  /* Les boutons Menu / WhatsApp s’alignent aussi à gauche, même style, petite taille */
+  .cta{
+    order:3;              /* sous les liens Localisation/Partenaires */
+    align-self:flex-start;
+    display:flex; gap:8px; flex-wrap:wrap;
+  }
+  .btn{padding:8px 12px; font-size:.9rem}
+
+  /* Fond : logo un peu plus petit et mieux centré sur mobile */
+  body{background-size:360px; background-position:center 140px}
+}
+
   </style>
 </head>
 <body>
