@@ -20,11 +20,11 @@
     /* FOND avec logo + voile */
     body{
       background-color:#0b0b0b;
-      background-image:url("logo noir.jpeg");   /* fichier au même niveau que index.html */
+      background-image:url("logo noir.jpeg");
       background-repeat:no-repeat;
       background-attachment:fixed;
-      background-size:560px;                     /* taille du logo de fond */
-      background-position:center 180px;          /* position du logo */
+      background-size:560px;
+      background-position:center 180px;
       position:relative;
     }
     body::before{
@@ -104,66 +104,62 @@
     .logos-partners{display:flex; flex-wrap:wrap; gap:14px; align-items:center}
     .logo-partenaire{height:48px; width:auto; display:block; filter:drop-shadow(0 2px 6px rgba(0,0,0,.35))}
 
+    /* Par défaut, la barre scroll est cachée sur desktop */
+    .links-bar{display:none}
+
     /* Footer */
     footer{border-top:1px solid #1f1f1f; color:var(--muted); padding:26px 0; font-size:.95rem}
 
-    /* Responsive */
-   /* ====== MOBILE : tout du même côté, propre ====== */
-/* ====== MOBILE : barre à défilement pour les liens ====== */
-@media (max-width: 540px){
-  /* Le header devient une colonne */
-  .topbar{flex-direction:column; align-items:flex-start; gap:10px}
+    /* ====== MOBILE : barre à défilement pour les liens ====== */
+    @media (max-width: 540px){
+      .topbar{flex-direction:column; align-items:flex-start; gap:10px}
+      .brand{gap:10px}
+      .brand img{width:88px; height:88px}
+      .brand h1{font-size:1.05rem}
 
-  /* Logo plus compact */
-  .brand{gap:10px}
-  .brand img{width:88px; height:88px}
-  .brand h1{font-size:1.05rem}
+      /* Barre horizontale (une seule ligne scrollable) */
+      .links-bar{
+        display:flex;
+        gap:10px;
+        overflow-x:auto;
+        white-space:nowrap;
+        padding:8px 4px;
+        scrollbar-width:none;
+      }
+      .links-bar::-webkit-scrollbar{display:none;}
 
-  /* --- Barre horizontale pour tous les liens --- */
-  .links-bar{
-    display:flex;
-    gap:10px;
-    overflow-x:auto;
-    white-space:nowrap;
-    padding:8px 4px;
-    scrollbar-width:none;        /* masque scrollbar Firefox */
-  }
-  .links-bar::-webkit-scrollbar{display:none;} /* masque scrollbar Chrome */
+      .links-bar a, .links-bar .btn{
+        flex:0 0 auto;
+        display:inline-block;
+        padding:8px 14px;
+        border-radius:999px;
+        font-weight:600;
+        font-size:.9rem;
+        text-decoration:none;
+        background:#161616;
+        border:1px solid #2a2a2a;
+        color:#f5f5f5;
+        transition:.2s;
+      }
+      .links-bar a:hover, .links-bar .btn:hover{
+        background:linear-gradient(90deg,var(--brand1),var(--brand2));
+        color:#100;
+        border:none;
+      }
 
-  /* Tous les boutons/links ont le même style */
-  .links-bar a, .links-bar .btn{
-    flex:0 0 auto;
-    display:inline-block;
-    padding:8px 14px;
-    border-radius:999px;
-    font-weight:600;
-    font-size:.9rem;
-    text-decoration:none;
-    background:#161616;
-    border:1px solid #2a2a2a;
-    color:#f5f5f5;
-    transition:.2s;
-  }
-  .links-bar a:hover, .links-bar .btn:hover{
-    background:linear-gradient(90deg,var(--brand1),var(--brand2));
-    color:#100;
-    border:none;
-  }
+      /* On masque les anciens blocs séparés */
+      .brand-left, .cta{display:none;}
 
-  /* On masque les anciens blocs séparés pour n’utiliser que la barre */
-  .brand-left, .cta{display:none;}
-
-  /* Fond : logo un peu plus petit sur mobile */
-  body{background-size:340px; background-position:center 140px}
-}
-
-
+      /* Fond : logo un peu plus petit sur mobile */
+      body{background-size:340px; background-position:center 140px}
+    }
   </style>
 </head>
 <body>
   <header>
     <div class="wrap topbar">
       <div class="brand">
+        <!-- Liens à gauche du logo (affichés sur desktop uniquement) -->
         <div class="brand-left">
           <a href="#planning" class="link-left">📍 Localisation</a>
           <a href="#partenaires" class="link-left">🤝 Partenaires</a>
@@ -171,6 +167,16 @@
         <img src="logo noir.jpeg" alt="Logo Chicken Bar" loading="lazy" />
         <h1>Chicken Bar</h1>
       </div>
+
+      <!-- Barre horizontale mobile : une seule ligne scrollable -->
+      <div class="links-bar">
+        <a href="#planning">📍 Localisation</a>
+        <a href="#partenaires">🤝 Partenaires</a>
+        <a href="#menu">🍗 Menu</a>
+        <a href="https://wa.me/33671798318" target="_blank" rel="noopener">💬 WhatsApp</a>
+      </div>
+
+      <!-- Boutons (affichés sur desktop) -->
       <nav class="cta">
         <a class="btn" href="#menu">Voir le menu</a>
         <a class="btn btn-primary" href="https://wa.me/33671798318" target="_blank" rel="noopener">Commander sur WhatsApp</a>
