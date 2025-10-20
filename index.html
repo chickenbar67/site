@@ -73,6 +73,10 @@
     }
     .item .tags{display:flex; gap:6px; flex-wrap:wrap; align-items:center}
 
+    /* Partenaires */
+    .logos-partners{display:flex; flex-wrap:wrap; gap:14px; align-items:center}
+    .logo-partenaire{height:44px; width:auto; display:block}
+
     /* Footer */
     footer{border-top:1px solid #1f1f1f; color:var(--muted); padding:26px 0; font-size:.95rem}
 
@@ -93,7 +97,7 @@
           <a href="#partenaires" class="link-left">🤝 Partenaires</a>
         </div>
         <!-- Logo + titre -->
-        <img src="logo noir.jpeg" alt="Logo Chicken Bar" />
+        <img src="logo noir.jpeg" alt="Logo Chicken Bar" loading="lazy" />
         <h1>Chicken Bar</h1>
       </div>
       <nav class="cta">
@@ -235,10 +239,15 @@
   <section id="partenaires" class="wrap">
     <h3 class="section-title">🤝 Partenaires</h3>
     <div class="card">
-      <p class="desc" style="color:#bdbdbd;margin:0">Ajoutez ici vos partenaires (logos, liens…).</p>
-    </div><a href="https://www.fc-ostwald.fr" target="_blank" rel="noopener noreferrer">
-  <img src="images/fcostwald.png" alt="FC Ostwald" class="logo-partenaires">
-</a>
+      <div class="logos-partners">
+        <!-- Exemple de partenaire -->
+        <a href="https://www.fc-ostwald.fr" target="_blank" rel="noopener">
+          <img src="images/fcostwald.png" alt="FC Ostwald" class="logo-partenaire" loading="lazy">
+        </a>
+        <!-- Ajoute d'autres logos ici -->
+      </div>
+      <p class="desc" style="color:#bdbdbd;margin:12px 0 0">Ajoutez ici vos autres partenaires (logos, liens…).</p>
+    </div>
   </section>
 
   <footer>
