@@ -14,7 +14,10 @@
       --brand1:#ff7a18; --brand2:#ff3d00; --card:#141414;
       --radius:18px; --shadow:0 10px 30px rgba(0,0,0,.35);
       --pill-bg:#161616; --pill-border:#2a2a2a;
-      --header-pad:120px;         /* espace sous le header fixe */
+
+      /* sera mis à jour par JS pour compenser la hauteur du header */
+      --header-pad: 120px;
+      --header-blur: 8px;
     }
 
     *{box-sizing:border-box}
@@ -31,8 +34,8 @@
       position:fixed; inset:0; z-index:0; pointer-events:none;
       background-image:url("logo noir.jpeg");
       background-repeat:no-repeat;
-      background-size:580px;             /* taille du logo fond (PC) */
-      background-position:center 180px;  /* position verticale */
+      background-size:580px;
+      background-position:center 180px;
       opacity:.16; filter:saturate(.9);
     }
     .backdrop{
@@ -46,21 +49,30 @@
 
     /* ===== HEADER FIXE ===== */
     header{
-      position:fixed; inset:0 0 auto 0; z-index:3;
+      position:fixed; left:0; right:0; top:0; z-index:3;
       background:
         radial-gradient(110% 140% at 10% 10%, rgba(255,122,24,.10), transparent),
         radial-gradient(120% 160% at 90% 10%, rgba(255,61,0,.12), transparent),
         rgba(10,10,10,.58);
-      backdrop-filter:saturate(1.05) blur(8px);
-      -webkit-backdrop-filter:saturate(1.05) blur(8px);
+      backdrop-filter:saturate(1.05) blur(var(--header-blur));
+      -webkit-backdrop-filter:saturate(1.05) blur(var(--header-blur));
       border-bottom:1px solid var(--line);
+      transition: padding .18s ease, background .18s ease, box-shadow .18s ease;
     }
-    .topbar{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:12px 0}
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:16px; padding:14px 0; transition:padding .18s ease;
+    }
     .brand{display:flex; align-items:center; gap:12px}
-    .brand img{width:106px; height:106px; object-fit:contain}
+    .brand img{width:106px; height:106px; object-fit:contain; transition:width .18s ease, height .18s ease}
     .brand h1{font-size:1.34rem; margin:0; letter-spacing:.5px}
 
-    /* Barre de liens jolie (fixe dans le header) */
+    /* Header compact au scroll */
+    header.compact { box-shadow:0 8px 24px rgba(0,0,0,.28) }
+    header.compact .topbar{ padding:8px 0 }
+    header.compact .brand img{ width:84px; height:84px }
+
+    /* Barre de liens dans le header */
     .links-bar{
       display:flex; gap:12px; flex-wrap:wrap; align-items:center; justify-content:flex-end;
     }
@@ -75,7 +87,7 @@
     .pill svg{width:18px; height:18px; display:block}
 
     /* ===== HERO ===== */
-    .hero{ padding:18px 0 24px } /* héro compact car header fixe */
+    .hero{ padding:18px 0 24px }
     .badge{
       display:inline-block; padding:7px 12px; border-radius:12px; font-weight:700; letter-spacing:.2px;
       background:rgba(255,122,24,.16); border:1px solid rgba(255,122,24,.35)
@@ -83,8 +95,8 @@
     .hero h2{ font-size:2.2rem; margin:.5rem 0 0; line-height:1.15; text-shadow:0 2px 10px rgba(0,0,0,.15) }
     .hero p{ color:var(--muted); margin:.6rem 0 0 }
 
-    /* ===== SECTIONS ===== */
-    section{ padding:26px 0 }
+    /* ===== SECTIONS & CARTES ===== */
+    section{ padding:26px 0; scroll-margin-top:calc(var(--header-pad) + 12px); }
     .section-title{
       font-size:1.45rem; letter-spacing:.4px; margin:0 0 16px; position:relative; display:inline-block
     }
@@ -93,7 +105,6 @@
       background:linear-gradient(90deg, var(--brand1), var(--brand2)); border-radius:2px; opacity:.9
     }
 
-    /* Grilles & cartes */
     .grid{ display:grid; gap:16px }
     .grid.cols-2{ grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)) }
     .grid.cols-3{ grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)) }
@@ -118,29 +129,37 @@
       -webkit-background-clip:text; background-clip:text; color:transparent
     }
 
-    /* Allergènes */
+    /* Allergènes & partenaires */
     .legend{display:flex; flex-wrap:wrap; gap:8px}
     .allergen-badge{
       display:inline-block; padding:4px 8px; border:1px solid var(--pill-border);
       border-radius:8px; font-size:.8rem; letter-spacing:.3px; background:var(--pill-bg); color:var(--fg);
     }
-
-    /* Partenaires */
     .logos-partners{ display:flex; flex-wrap:wrap; gap:14px; align-items:center }
     .logo-partenaire{ height:48px; width:auto; display:block; filter: drop-shadow(0 2px 6px rgba(0,0,0,.18)) }
 
+    /* Footer */
     footer{ border-top:1px solid var(--line); color:var(--muted); padding:26px 0; font-size:.95rem }
+
+    /* ===== Bouton retour en haut ===== */
+    .to-top{
+      position:fixed; right:20px; bottom:24px; z-index:4;
+      display:none; align-items:center; gap:8px;
+      padding:10px 14px; border-radius:999px; font-weight:800;
+      background:linear-gradient(90deg,var(--brand1),var(--brand2)); color:#100; border:none;
+      box-shadow:0 10px 26px rgba(0,0,0,.35); cursor:pointer;
+      transition:transform .18s ease, opacity .18s ease;
+    }
+    .to-top:hover{ transform:translateY(-2px) }
+    .to-top.show{ display:inline-flex; }
 
     /* ===== MOBILE ===== */
     @media (max-width:540px){
-      :root{ --header-pad:128px; }
-      .brand img{width:86px; height:86px}
+      .brand img{width:84px; height:84px}
       .brand h1{font-size:1.04rem}
       .hero h2{font-size:1.64rem}
-
       .bg-logo{ background-size:360px; background-position:center 140px }
 
-      /* barre scrollable si ça déborde */
       .links-bar{
         overflow-x:auto; white-space:nowrap; gap:10px; padding:8px 2px;
         scrollbar-width:none;
@@ -156,27 +175,24 @@
   <div class="backdrop" aria-hidden="true"></div>
 
   <!-- HEADER FIXE -->
-  <header>
+  <header id="siteHeader">
     <div class="wrap topbar">
       <div class="brand">
         <img src="logo noir.jpeg" alt="Logo Chicken Bar" loading="lazy" />
         <h1>Chicken Bar</h1>
       </div>
 
-      <!-- Barre de liens (sans WhatsApp) -->
+      <!-- Barre de liens -->
       <nav class="links-bar" aria-label="Navigation principale">
         <a class="pill" href="#menu" aria-label="Menu">
-          <!-- Drumstick (approx) -->
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14.5 3.5a5 5 0 0 1 7 7l-6.5 6.5a3 3 0 0 1-2.1.9H12l-2 2-3-3 2-2v-1.9a3 3 0 0 1 .9-2.1L14.5 3.5Z"/></svg>
           Menu
         </a>
         <a class="pill" href="#planning" aria-label="Localisation">
-          <!-- Map-pin -->
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
           Localisation
         </a>
         <a class="pill" href="#partenaires" aria-label="Partenaires">
-          <!-- Handshake style (simplifié) -->
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 8l5-3 4 4 4-4 5 3M3 8v5l5 3m13-8v5l-5 3M8 16l4 3 4-3M12 12l4 4"/></svg>
           Partenaires
         </a>
@@ -359,9 +375,42 @@
     </div>
   </footer>
 
+  <!-- Bouton retour en haut -->
+  <button id="toTop" class="to-top" aria-label="Revenir en haut" title="Haut de page">⬆️ Haut</button>
+
   <script>
     // Année dynamique
     document.getElementById('y').textContent = new Date().getFullYear();
+
+    // 1) Compense automatiquement la hauteur du header pour le padding-top + ancres
+    const header = document.getElementById('siteHeader');
+    const setHeaderPad = () => {
+      const h = header.offsetHeight;
+      document.documentElement.style.setProperty('--header-pad', h + 'px');
+    };
+    setHeaderPad();
+    window.addEventListener('resize', setHeaderPad);
+
+    // 2) Header compact au scroll
+    const onScroll = () => {
+      if (window.scrollY > 8) header.classList.add('compact');
+      else header.classList.remove('compact');
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, {passive:true});
+
+    // 3) Bouton retour en haut
+    const toTop = document.getElementById('toTop');
+    const toggleTopBtn = () => {
+      if (window.scrollY > 450) toTop.classList.add('show');
+      else toTop.classList.remove('show');
+    };
+    toggleTopBtn();
+    window.addEventListener('scroll', toggleTopBtn, {passive:true});
+    toTop.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+
+    // 4) Recalcule après chargement images du header (logo)
+    window.addEventListener('load', setHeaderPad);
   </script>
 </body>
 </html>
