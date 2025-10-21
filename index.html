@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -9,85 +9,116 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
+    /* ========= THEME TOKENS ========= */
     :root{
-      --bg:#0b0b0b; --fg:#f5f5f5; --muted:#bdbdbd;
-      --brand1:#ff7a18; --brand2:#ff3d00;
-      --line:#1f1f1f; --card:#141414;
-      --radius:18px; --shadow:0 10px 30px rgba(0,0,0,.35);
-      --ring: 0 0 0 3px rgba(255,122,24,.25);
-      --space: 28px;
+      --bg:#0b0b0b; --fg:#f5f5f5; --muted:#bdbdbd; --line:#1f1f1f;
+      --brand1:#ff7a18; --brand2:#ff3d00; --card:#141414;
+      --radius:18px; --shadow:0 10px 30px rgba(0,0,0,.35); --ring:0 0 0 3px rgba(255,122,24,.25);
+      --pill-bg:#161616; --pill-border:#2a2a2a; --pill-text:#0f0f0f;
     }
+    /* Thème clair */
+    html[data-theme="light"]{
+      --bg:#f7f7f7; --fg:#181818; --muted:#5f5f5f; --line:#e6e6e6;
+      --card:#ffffff; --shadow:0 12px 28px rgba(0,0,0,.08);
+      --pill-bg:#ffffff; --pill-border:#e7e7e7; --pill-text:#111;
+    }
+
     *{box-sizing:border-box}
     html,body{
       margin:0; padding:0; color:var(--fg);
       font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      scroll-behavior:smooth;
-      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      scroll-behavior:smooth; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
     }
     a{color:inherit; text-decoration:none}
     a:focus-visible, button:focus-visible{outline:none; box-shadow:var(--ring); border-radius:14px}
 
-    /* ===== FOND compatible iPhone (logo en calque fixe) ===== */
+    /* ========= FOND (compatible iPhone) ========= */
     body{ background-color:var(--bg); }
     .bg-logo{
       position:fixed; inset:0; z-index:0; pointer-events:none;
       background-image:url("logo noir.jpeg"); /* même dossier que index.html */
       background-repeat:no-repeat;
-      background-size:580px;               /* taille du logo fond (PC) */
-      background-position:center 180px;    /* position verticale */
-      filter: saturate(0.9);
+      background-size:580px;
+      background-position:center 180px;
+      filter:saturate(0.9);
+      opacity:0.15; /* léger en dark / ajusté ci-dessous pour light */
+      transition:opacity .2s ease;
     }
-    /* Voile pour lisibilité du texte */
+    html[data-theme="light"] .bg-logo{ opacity:.07 }
+
     .backdrop{
       position:fixed; inset:0; z-index:1; pointer-events:none;
       background:
-        radial-gradient(1200px 600px at 50% 140px, rgba(0,0,0,.25), transparent 60%),
-        linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,.25) 25%, rgba(0,0,0,.45));
+        radial-gradient(1200px 600px at 50% 140px, rgba(0,0,0,.18), transparent 60%),
+        linear-gradient(to bottom, rgba(0,0,0,.35), rgba(0,0,0,.15) 25%, rgba(0,0,0,.30));
+      transition:opacity .2s ease, background .2s ease;
+    }
+    html[data-theme="light"] .backdrop{
+      background:
+        radial-gradient(1200px 600px at 50% 140px, rgba(0,0,0,.05), transparent 60%),
+        linear-gradient(to bottom, rgba(255,255,255,.6), rgba(255,255,255,.15) 30%, rgba(255,255,255,.65));
+      mix-blend-mode:multiply;
     }
 
     .wrap{max-width:1100px; margin:0 auto; padding:0 20px; position:relative; z-index:2}
 
-    /* ===== HEADER amélioré ===== */
+    /* ========= HEADER ========= */
     header{
       position:sticky; top:0; z-index:3;
-      backdrop-filter:saturate(1.1) blur(6px);
-      -webkit-backdrop-filter:saturate(1.1) blur(6px);
+      backdrop-filter:saturate(1.05) blur(6px);
+      -webkit-backdrop-filter:saturate(1.05) blur(6px);
       background:
         radial-gradient(110% 140% at 10% 10%, rgba(255,122,24,.10), transparent),
         radial-gradient(120% 160% at 90% 10%, rgba(255,61,0,.12), transparent),
-        rgba(10,10,10,.55);
+        color-mix(in srgb, var(--bg) 60%, transparent);
       border-bottom:1px solid var(--line);
     }
-    .topbar{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:16px 0}
+    .topbar{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 0}
     .brand{display:flex; align-items:center; gap:12px}
     .brand img{width:112px; height:112px; object-fit:contain}
     .brand h1{font-size:1.35rem; margin:0; letter-spacing:.5px}
 
-    /* Barre de liens – PC & mobile */
+    /* Barre de liens */
     .links-bar{
       display:flex; gap:12px; flex-wrap:wrap; align-items:center;
       justify-content:flex-start; padding:6px 0;
     }
     .pill{
-      display:inline-block; padding:10px 16px; border-radius:999px; font-weight:700; font-size:.95rem;
-      background:#161616; border:1px solid #2a2a2a; box-shadow:0 6px 20px rgba(0,0,0,.25);
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 16px; border-radius:999px; font-weight:700; font-size:.95rem;
+      background:var(--pill-bg); border:1px solid var(--pill-border);
+      color:var(--fg);
+      box-shadow:var(--shadow);
       transition:transform .18s ease, filter .18s ease, border-color .18s ease, background .18s ease;
     }
-    .pill:hover{ transform:translateY(-2px); border-color:#3a3a3a }
-    .pill--primary{ background:linear-gradient(90deg,var(--brand1),var(--brand2)); color:#100; border:none }
-    .pill--primary:hover{ filter:brightness(1.05) }
+    .pill:hover{ transform:translateY(-2px); border-color:color-mix(in srgb, var(--pill-border) 60%, var(--brand1) 40%) }
+    .pill--primary{
+      background:linear-gradient(90deg,var(--brand1),var(--brand2)); color:#100; border:none;
+    }
+    .pill svg{width:18px; height:18px; display:block}
 
-    /* ===== HERO ===== */
-    .hero{ padding:48px 0 32px }
+    /* Switch thème */
+    .theme-toggle{
+      margin-left:auto;
+      display:inline-flex; align-items:center; gap:8px;
+      padding:9px 14px; border-radius:999px; font-weight:700; font-size:.9rem;
+      background:var(--pill-bg); border:1px solid var(--pill-border); cursor:pointer;
+      transition:transform .18s ease;
+    }
+    .theme-toggle:hover{ transform:translateY(-1px) }
+
+    /* ========= HERO ========= */
+    .hero{ padding:46px 0 30px }
     .badge{
       display:inline-block; padding:7px 12px; border-radius:12px; font-weight:700; letter-spacing:.2px;
       background:rgba(255,122,24,.16); border:1px solid rgba(255,122,24,.35)
     }
-    .hero h2{ font-size:2.35rem; margin:.5rem 0 0; line-height:1.15; text-shadow:0 2px 10px rgba(0,0,0,.35) }
+    html[data-theme="light"] .badge{ background:rgba(255,122,24,.12) }
+    .hero h2{ font-size:2.35rem; margin:.5rem 0 0; line-height:1.15; text-shadow:0 2px 10px rgba(0,0,0,.15) }
     .hero p{ color:var(--muted); margin:.6rem 0 0 }
 
-    /* ===== SECTIONS ===== */
-    section{ padding: var(--space) 0 }
+    /* ========= SECTIONS ========= */
+    section{ padding:28px 0 }
     .section-title{
       font-size:1.45rem; letter-spacing:.4px; margin:0 0 16px; position:relative; display:inline-block
     }
@@ -96,27 +127,23 @@
       background:linear-gradient(90deg, var(--brand1), var(--brand2)); border-radius:2px; opacity:.9
     }
 
-    /* ===== GRILLES & CARTES ===== */
+    /* Grilles & cartes */
     .grid{ display:grid; gap:16px }
     .grid.cols-2{ grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)) }
     .grid.cols-3{ grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)) }
 
     .card{
-      background:rgba(20,20,20,.64);
-      border:1px solid rgba(255,255,255,.07);
+      background:color-mix(in srgb, var(--card) 82%, transparent);
+      border:1px solid color-mix(in srgb, var(--fg) 8%, transparent);
       border-radius:var(--radius);
       padding:18px;
       box-shadow: var(--shadow);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
+      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
       transition: transform .18s ease, border-color .18s ease, background .18s ease;
     }
-    .card:hover{ transform:translateY(-2px); border-color:rgba(255,255,255,.12); background:rgba(26,26,26,.68) }
+    .card:hover{ transform:translateY(-2px); border-color:color-mix(in srgb, var(--fg) 16%, transparent) }
 
-    .item{
-      display:flex; align-items:flex-start; justify-content:space-between; gap:12px;
-      padding:12px 0; border-bottom:1px dashed #2b2b2b
-    }
+    .item{ display:flex; align-items:flex-start; justify-content:space-between; gap:12px; padding:12px 0; border-bottom:1px dashed var(--line) }
     .item:last-child{ border-bottom:none }
     .item .name{ font-weight:800 }
     .item .desc{ color:var(--muted); font-size:.95rem }
@@ -125,34 +152,24 @@
       -webkit-background-clip:text; background-clip:text; color:transparent
     }
 
-    /* Allergènes */
     .legend{display:flex; flex-wrap:wrap; gap:8px}
     .allergen-badge{
-      display:inline-block; padding:4px 8px; border:1px solid #2a2a2a;
-      border-radius:8px; font-size:.8rem; letter-spacing:.3px; background:#151515; color:#f5f5f5;
+      display:inline-block; padding:4px 8px; border:1px solid var(--pill-border);
+      border-radius:8px; font-size:.8rem; letter-spacing:.3px; background:var(--pill-bg); color:var(--fg);
     }
 
-    /* Partenaires */
     .logos-partners{ display:flex; flex-wrap:wrap; gap:14px; align-items:center }
-    .logo-partenaire{ height:48px; width:auto; display:block; filter: drop-shadow(0 2px 6px rgba(0,0,0,.35)) }
+    .logo-partenaire{ height:48px; width:auto; display:block; filter: drop-shadow(0 2px 6px rgba(0,0,0,.18)) }
 
-    /* Footer */
-    footer{ border-top:1px solid var(--line); color:#bdbdbd; padding:26px 0; font-size:.95rem }
+    footer{ border-top:1px solid var(--line); color:var(--muted); padding:26px 0; font-size:.95rem }
 
-    /* Motion safe */
-    @media (prefers-reduced-motion:reduce){
-      *{ animation:none!important; transition:none!important }
-    }
-
-    /* ===== MOBILE ===== */
+    /* ========= MOBILE ========= */
     @media (max-width:540px){
       .brand img{width:88px; height:88px}
       .brand h1{font-size:1.05rem}
       .hero h2{font-size:1.72rem}
+      .bg-logo{ background-size:360px; background-position:center 140px }
 
-      .bg-logo{ background-size:360px; background-position:center 140px } /* logo fond + petit sur iPhone */
-
-      /* Barre : une seule ligne défilable */
       .links-bar{
         overflow-x:auto; white-space:nowrap; gap:10px; padding:8px 4px;
         scrollbar-width:none;
@@ -163,7 +180,7 @@
   </style>
 </head>
 <body>
-  <!-- Calque logo fond + voile (compatible iOS Safari) -->
+  <!-- Calques fond -->
   <div class="bg-logo" aria-hidden="true"></div>
   <div class="backdrop" aria-hidden="true"></div>
 
@@ -174,19 +191,42 @@
         <h1>Chicken Bar</h1>
       </div>
 
-      <!-- Barre de liens (PC + mobile) -->
+      <!-- Barre de liens avec icônes SVG -->
       <nav class="links-bar" aria-label="Navigation principale">
-        <a class="pill" href="#planning">📍 Localisation</a>
-        <a class="pill" href="#partenaires">🤝 Partenaires</a>
-        <a class="pill" href="#menu">🍗 Menu</a>
-        <a class="pill pill--primary" href="https://wa.me/33671798318" target="_blank" rel="noopener">💬 WhatsApp</a>
+        <a class="pill" href="#planning" aria-label="Localisation">
+          <!-- Map-pin -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          Localisation
+        </a>
+        <a class="pill" href="#partenaires" aria-label="Partenaires">
+          <!-- Handshake style (simplifié) -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 8l5-3 4 4 4-4 5 3M3 8v5l5 3m13-8v5l-5 3M8 16l4 3 4-3M12 12l4 4"/></svg>
+          Partenaires
+        </a>
+        <a class="pill" href="#menu" aria-label="Menu">
+          <!-- Drumstick (approx) -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14.5 3.5a5 5 0 0 1 7 7l-6.5 6.5a3 3 0 0 1-2.1.9H12l-2 2-3-3 2-2v-1.9a3 3 0 0 1 .9-2.1L14.5 3.5Z"/></svg>
+          Menu
+        </a>
+        <a class="pill pill--primary" href="https://wa.me/33671798318" target="_blank" rel="noopener" aria-label="WhatsApp">
+          <!-- Message-circle -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12a9 9 0 1 1-3-6.7L21 3l-2.3 3A8.9 8.9 0 0 1 21 12Z"/><path d="M8 12l2 2 4-4"/></svg>
+          WhatsApp
+        </a>
+
+        <!-- Bouton de thème -->
+        <button class="theme-toggle" type="button" id="themeBtn" aria-label="Basculer clair/sombre">
+          <svg id="sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg id="moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="display:none"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+          Thème
+        </button>
       </nav>
     </div>
 
     <div class="wrap hero">
       <span class="badge" aria-label="Produit halal certifié">Produit halal certifié</span>
       <h2>Pilons croustillants, recettes maison & menus pour toutes les faims.</h2>
-      <p>Sur place, à emporter ou en livraison locale. Fraîcheur, goût et générosité. 🍗🔥</p>
+      <p>Sur place, à emporter ou en livraison locale. Fraîcheur, goût et générosité.</p>
     </div>
   </header>
 
@@ -196,34 +236,10 @@
       <h3 class="section-title">Nos menus Chicken</h3>
       <div class="grid cols-3">
         <div class="card">
-          <div class="item">
-            <div>
-              <div class="name">Menu cuisse</div>
-              <div class="desc">1 cuisse • 1 barquette au choix • 1 boisson 33cl</div>
-            </div>
-            <div class="price">13€</div>
-          </div>
-          <div class="item">
-            <div>
-              <div class="name">Menus 3 pilons</div>
-              <div class="desc">3 pilons • 1 barquette au choix • 1 boisson 33cl</div>
-            </div>
-            <div class="price">9€</div>
-          </div>
-          <div class="item">
-            <div>
-              <div class="name">Menu enfant</div>
-              <div class="desc">2 pilons / 3 sticks / 3 "Tenders" • 1 barquette • 1 boisson 33cl • 1 jouet offert</div>
-            </div>
-            <div class="price">7€</div>
-          </div>
-          <div class="item">
-            <div>
-              <div class="name">Chicken Party</div>
-              <div class="desc">Assortiment de poulet • 3 barquettes au choix • 2 bouteilles au choix</div>
-            </div>
-            <div class="price">50€</div>
-          </div>
+          <div class="item"><div><div class="name">Menu cuisse</div><div class="desc">1 cuisse • 1 barquette au choix • 1 boisson 33cl</div></div><div class="price">13€</div></div>
+          <div class="item"><div><div class="name">Menus 3 pilons</div><div class="desc">3 pilons • 1 barquette au choix • 1 boisson 33cl</div></div><div class="price">9€</div></div>
+          <div class="item"><div><div class="name">Menu enfant</div><div class="desc">2 pilons / 3 sticks / 3 "Tenders" • 1 barquette • 1 boisson 33cl • 1 jouet offert</div></div><div class="price">7€</div></div>
+          <div class="item"><div><div class="name">Chicken Party</div><div class="desc">Assortiment de poulet • 3 barquettes au choix • 2 bouteilles au choix</div></div><div class="price">50€</div></div>
         </div>
       </div>
     </section>
@@ -288,9 +304,9 @@
     <section id="planning">
       <h3 class="section-title">📍 Planning de localisation</h3>
       <div class="card">
-        <table style="width:100%; border-collapse:collapse; color:#f5f5f5;">
+        <table style="width:100%; border-collapse:collapse; color:inherit;">
           <thead>
-            <tr style="border-bottom:1px solid #2b2b2b;">
+            <tr style="border-bottom:1px solid var(--line);">
               <th style="text-align:left; padding:10px;">Jour</th>
               <th style="text-align:left; padding:10px;">Lieu</th>
               <th style="text-align:left; padding:10px;">Horaires</th>
@@ -313,7 +329,7 @@
     <section id="allergenes">
       <h3 class="section-title">⚠️ Allergènes</h3>
       <div class="card">
-        <p class="desc" style="margin:0 0 10px;color:#bdbdbd">
+        <p class="desc" style="margin:0 0 10px;color:var(--muted)">
           Nos préparations peuvent contenir des traces d’allergènes. En cas d’allergie, signalez-le lors de la commande.
         </p>
         <div class="legend">
@@ -361,6 +377,37 @@
   <script>
     // Année dynamique
     document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Thème : lecture préférence, bascule, mémorisation
+    (function(){
+      const root = document.documentElement;
+      const btn  = document.getElementById('themeBtn');
+
+      // Récup préférence
+      const saved = localStorage.getItem('cb-theme');
+      if(saved){ root.setAttribute('data-theme', saved); toggleIcons(saved); }
+
+      // Si pas de sauvegarde, aligner sur préférence OS
+      if(!saved){
+        const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+        root.setAttribute('data-theme', prefersLight ? 'light' : 'dark');
+        toggleIcons(prefersLight ? 'light' : 'dark');
+      }
+
+      btn.addEventListener('click', () => {
+        const curr = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', curr);
+        localStorage.setItem('cb-theme', curr);
+        toggleIcons(curr);
+      });
+
+      function toggleIcons(theme){
+        const sun = document.getElementById('sun');
+        const moon = document.getElementById('moon');
+        if(theme === 'light'){ sun.style.display='none'; moon.style.display='block'; }
+        else { sun.style.display='block'; moon.style.display='none'; }
+      }
+    })();
   </script>
 </body>
 </html>
