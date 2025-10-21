@@ -14,7 +14,7 @@
       --brand1:#ff7a18; --brand2:#ff3d00; --card:#141414;
       --radius:18px; --shadow:0 10px 30px rgba(0,0,0,.35);
       --pill-bg:#161616; --pill-border:#2a2a2a;
-      --header-pad: 120px;
+      --header-pad: 120px;        /* compensé dynamiquement par JS */
       --header-blur: 8px;
     }
 
@@ -73,7 +73,7 @@
     .brand img{width:106px; height:106px; object-fit:contain; transition:width .18s ease, height .18s ease}
     .brand h1{font-size:1.34rem; margin:0; letter-spacing:.5px}
 
-    /* compact */
+    /* compact au scroll */
     header.compact { box-shadow:0 8px 24px rgba(0,0,0,.28) }
     header.compact .topbar{ padding:8px 0 }
     header.compact .brand img{ width:84px; height:84px }
@@ -164,16 +164,14 @@
     /* ===== Animations reveal ===== */
     .reveal{ opacity:0; transform:translateY(14px); }
     .reveal.is-visible{ opacity:1; transform:none; transition:opacity .5s ease, transform .5s ease; }
-    /* Couleurs qui apparaissent doucement sur titres/traits */
     .section-title::after{ transition:width .6s ease }
     .reveal.is-visible .section-title::after{ width:72% }
 
-    /* Accessibilité : réduit les animations si demandé */
     @media (prefers-reduced-motion: reduce){
       .reveal, .reveal.is-visible{ opacity:1; transform:none !important; transition:none !important }
     }
 
-    /* ===== MOBILE ===== */
+    /* ===== MOBILE (corrigé : nav défilable, bouton Menu visible) ===== */
     @media (max-width:540px){
       .brand img{width:84px; height:84px}
       .brand h1{font-size:1.04rem}
@@ -181,9 +179,25 @@
 
       .bg-logo{ background-size:360px; background-position:center 140px }
 
-      .links-bar{ overflow-x:auto; white-space:nowrap; gap:10px; padding:8px 2px; scrollbar-width:none; }
+      /* NAV : défilable horizontalement, commence à gauche */
+      .links-bar{
+        justify-content:flex-start;
+        overflow-x:auto;
+        white-space:nowrap;
+        gap:10px; padding:8px 8px;
+        scrollbar-width:none;
+        -webkit-overflow-scrolling:touch;
+      }
       .links-bar::-webkit-scrollbar{ display:none }
-      .pill{ padding:8px 14px; font-size:.9rem }
+
+      /* Le rang devient inline pour permettre le scroll */
+      .nav-row{
+        display:inline-flex;
+        gap:10px;
+        width:auto;                   /* surtout pas 100% */
+      }
+
+      .pill{ flex:0 0 auto; padding:8px 14px; font-size:.9rem }
     }
   </style>
 </head>
@@ -203,7 +217,7 @@
         <h1>Chicken Bar</h1>
       </div>
 
-      <!-- Barre de liens centrée -->
+      <!-- Barre de liens centrée (desktop) / défilable (mobile) -->
       <nav class="links-bar" aria-label="Navigation principale">
         <div class="nav-row">
           <a class="pill" href="#menu" aria-label="Menu">
@@ -276,6 +290,7 @@
           <div class="item"><div><div class="name">Ailes (lot de 4) 🪽🪽🪽🪽</div><div class="desc">Petit combo malin</div></div><div class="price">2€</div></div>
           <div class="item"><div><div class="name">Pilon mariné 🧄</div><div class="desc">Marinade maison parfumée</div></div><div class="price">2€</div></div>
           <div class="item"><div><div class="name">Pilon chapelure bretzel 🥨</div><div class="desc">Ultra croustillant</div></div><div class="price">2,30€</div></div>
+          <!-- Pilon chapelure normal SUPPRIMÉ -->
           <div class="item"><div><div class="name">Pilon piment 🌶️</div><div class="desc">Pour les amateurs d’épicé</div></div><div class="price">2,30€</div></div>
         </div>
         <div class="card reveal">
@@ -441,7 +456,7 @@
 
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-    // Recalcule après chargement images (logo)
+    // Recalcule après chargement images
     window.addEventListener('load', setHeaderPad);
   </script>
 </body>
