@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -15,7 +14,7 @@
       --brand1:#ff7a18; --brand2:#ff3d00; --card:#141414;
       --radius:18px; --shadow:0 10px 30px rgba(0,0,0,.35);
       --pill-bg:#161616; --pill-border:#2a2a2a;
-      --header-pad: 120px;        /* compensé dynamiquement par JS */
+      --header-pad: 120px;        /* ajusté dynamiquement par JS */
       --header-blur: 8px;
     }
 
@@ -41,9 +40,10 @@
       position:absolute; inset:0;
       background-image:url("logo noir.jpeg");
       background-repeat:no-repeat;
-      background-size:600px;              /* Taille PC */
-      background-position:center 190px;
-      opacity:.16; filter:saturate(.9);
+      background-size:750px;              /* plus grand et visible sur PC */
+      background-position:center 180px;
+      opacity:.28;                         /* plus visible */
+      filter:saturate(1.1) contrast(1.05);
     }
     .backdrop{
       position:absolute; inset:0;
@@ -54,7 +54,7 @@
 
     .wrap{max-width:1100px; margin:0 auto; padding:0 20px; position:relative; z-index:2}
 
-    /* ===== HEADER FIXE ===== */
+    /* ===== HEADER FIXE (bandeau plus fin) ===== */
     header{
       position:fixed; left:0; right:0; top:0; z-index:3;
       background:
@@ -68,16 +68,16 @@
     }
     .topbar{
       display:flex; align-items:center; justify-content:space-between;
-      gap:16px; padding:8px 0; transition:padding .18s ease;
+      gap:12px; padding:4px 0; transition:padding .18s ease;   /* réduit */
     }
     .brand{display:flex; align-items:center; gap:12px}
-    .brand img{width:80.px; height:80px; object-fit:contain; transition:width .18s ease, height .18s ease}
-    .brand h1{font-size:1.34rem; margin:0; letter-spacing:.5px}
+    .brand img{width:64px; height:64px; object-fit:contain; transition:width .18s ease, height .18s ease} /* corrigé 80.px => 64px */
+    .brand h1{font-size:1.15rem; margin:0; letter-spacing:.4px} /* plus compact */
 
     /* compact au scroll */
     header.compact { box-shadow:0 8px 24px rgba(0,0,0,.28) }
-    header.compact .topbar{ padding:8px 0 }
-    header.compact .brand img{ width:84px; height:84px }
+    header.compact .topbar{ padding:4px 0 }
+    header.compact .brand img{ width:56px; height:56px }  /* encore un peu plus petit au scroll */
 
     /* ===== NAV centrée (desktop) ===== */
     .links-bar{
@@ -172,10 +172,10 @@
       .reveal, .reveal.is-visible{ opacity:1; transform:none !important; transition:none !important }
     }
 
-    /* ===== MOBILE (corrigé : nav défilable, bouton Menu visible) ===== */
+    /* ===== MOBILE ===== */
     @media (max-width:540px){
       .brand img{width:60px; height:60px}
-      .brand h1{font-size:0,95rem}
+      .brand h1{font-size:0.95rem}
       .hero h2{font-size:1.4rem}
 
       .bg-logo{ background-size:360px; background-position:center 140px }
@@ -253,21 +253,21 @@
           <div class="item">
             <div>
               <div class="name">Menu cuisse 🍗</div>
-              <div class="desc">1 cuisse • 1 accompagnement au choix • 1 boisson 33cl aux choix 🥤</div>
+              <div class="desc">1 cuisse • 1 accompagnement au choix • 1 boisson 33cl au choix 🥤</div>
             </div>
             <div class="price">11€</div>
           </div>
           <div class="item">
             <div>
               <div class="name">Menu 3 pilons 🔥</div>
-              <div class="desc">3 pilons aux choix • 1 accompagnement au choix • 1 boisson 33cl aux choix 🥤</div>
+              <div class="desc">3 pilons au choix • 1 accompagnement au choix • 1 boisson 33cl au choix 🥤</div>
             </div>
             <div class="price">9€</div>
           </div>
           <div class="item">
             <div>
-              <div class="name">Menu stick</div>
-              <div class="desc">5 sticks • 1 accompagnement aux choix • boisson 33cl aux choix🥤 </div>
+              <div class="name">Menu sticks 🍢</div>
+              <div class="desc">5 sticks • 1 accompagnement au choix • 1 boisson 33cl au choix 🥤</div>
             </div>
             <div class="price">8€</div>
           </div>
@@ -277,17 +277,15 @@
               <div class="desc">Assortiment de poulet • 3 barquettes au choix • 2 bouteilles 🥤</div>
             </div>
             <div class="price">50€</div>
-            </div>
+          </div>
           <div class="item">
             <div>
               <div class="name">Menu poulet entier 🍗</div>
               <div class="desc">1 poulet au choix • 1 accompagnement au choix • 1 boisson 33cl au choix 🥤</div>
             </div>
-          <div class="price">18€</div>
-            </div>
-          
-            </div>
-         </div>
+            <div class="price">18€</div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -402,27 +400,24 @@
 
   <!-- PARTENAIRES -->
   <section id="partenaires" class="wrap reveal">
-  <h3 class="section-title">🤝 Partenaires</h3>
-  <div class="card reveal">
-    <div class="logos-partners">
-      <a href="https://www.facebook.com/fcoostwald" target="_blank" rel="noopener noreferrer">
-        <img src="logofcoswald.png" alt="FC Ostwald" class="logo-partenaire" loading="lazy">
-      </a>
-
-      <a href="https://www.bge.asso.fr" target="_blank" rel="noopener noreferrer">
-        <img src="bge.png" alt="BGE" class="logo-partenaire" loading="lazy">
-      </a>
-
-      <a href="https://www.instagram.com/graphigoat/" target="_blank" rel="noopener noreferrer">
-        <img src="graphi-goat.png" alt="GraphiGoat" class="logo-partenaire" loading="lazy">
-      </a>
-      
-      <a href="https://adam-boissons.fr" target="_blank" rel="noopener noreferrer">
-        <img src="adam-boissons.jpg" alt="Adam Boissons" class="logo-partenaire" loading="lazy">
-      </a>
+    <h3 class="section-title">🤝 Partenaires</h3>
+    <div class="card reveal">
+      <div class="logos-partners">
+        <a href="https://www.facebook.com/fcoostwald" target="_blank" rel="noopener noreferrer">
+          <img src="logofcoswald.png" alt="FC Ostwald" class="logo-partenaire" loading="lazy">
+        </a>
+        <a href="https://www.bge.asso.fr" target="_blank" rel="noopener noreferrer">
+          <img src="bge.png" alt="BGE" class="logo-partenaire" loading="lazy">
+        </a>
+        <a href="https://www.instagram.com/graphigoat/" target="_blank" rel="noopener noreferrer">
+          <img src="graphi-goat.png" alt="GraphiGoat" class="logo-partenaire" loading="lazy">
+        </a>
+        <a href="https://adam-boissons.fr" target="_blank" rel="noopener noreferrer">
+          <img src="adam-boissons.jpg" alt="Adam Boissons" class="logo-partenaire" loading="lazy">
+        </a>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
   <footer>
     <div class="wrap">
