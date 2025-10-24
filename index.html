@@ -14,270 +14,267 @@
       --brand1:#ff7a18; --brand2:#ff3d00; --card:#141414;
       --radius:18px; --shadow:0 10px 30px rgba(0,0,0,.35);
       --pill-bg:#161616; --pill-border:#2a2a2a;
-      --header-pad:120px;
-      --header-blur:8px;
     }
-
     *{box-sizing:border-box}
-    html,body{
-      margin:0; padding:0; color:var(--fg);
-      font-family:Poppins,Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      scroll-behavior:smooth; background-color:var(--bg);
-    }
+    html,body{margin:0; padding:0; color:var(--fg); background:var(--bg); font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
     a{color:inherit; text-decoration:none}
+    img{max-width:100%; display:block}
 
-    /* ===== FOND (logo + halo) ===== */
-    body{padding-top:var(--header-pad);}
-    .bg-wrap{position:fixed; inset:0; z-index:0; pointer-events:none;}
-    .bg-logo{
-      position:absolute; inset:0;
-      background:url("logo noir.jpeg") no-repeat center 180px/600px;
-      opacity:.15;
-    }
-    .bg-halo{
-      position:absolute; inset:0;
-      background: radial-gradient(700px 700px at 50% 280px, rgba(255,122,24,.18), transparent 60%),
-                  radial-gradient(900px 500px at 50% 140px, rgba(255,61,0,.12), transparent 60%);
-      filter:blur(24px);
+    /* ===== Fond (logo en filigrane discret) ===== */
+    .bg-wrap{position:fixed; inset:0; z-index:0; pointer-events:none}
+    .bg-logo{position:absolute; inset:0; background:url("logo noir.jpeg") center 220px/560px no-repeat; opacity:.10; filter:saturate(.9)}
+    .bg-glow{position:absolute; inset:0; background:
+      radial-gradient(700px 700px at 50% 260px, rgba(255,122,24,.18), transparent 60%),
+      radial-gradient(900px 500px at 50% 140px, rgba(255,61,0,.12), transparent 60%);
+      filter:blur(24px)
     }
 
-    .wrap{max-width:1100px; margin:0 auto; padding:0 20px; position:relative; z-index:2;}
+    .wrap{max-width:1100px; margin:0 auto; padding:0 20px; position:relative; z-index:1}
 
-    /* ===== HEADER ===== */
+    /* ===== Header sticky (ne recouvre plus le contenu) ===== */
     header{
-      position:fixed; left:0; right:0; top:0; z-index:3;
-      background:rgba(10,10,10,.65);
-      backdrop-filter:blur(var(--header-blur));
+      position:sticky; top:0; z-index:5;
+      background:rgba(10,10,10,.7);
+      backdrop-filter:blur(8px);
       border-bottom:1px solid var(--line);
     }
-    .topbar{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:10px 0;}
-    .brand{display:flex; align-items:center; gap:12px}
-    .brand img{width:80px; height:80px; object-fit:contain}
-    .brand h1{font-size:1.4rem; margin:0}
+    .topbar{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 0}
+    .brand{display:flex; align-items:center; gap:10px}
+    .brand img{width:70px; height:70px; object-fit:contain}
+    .brand h1{font-size:1.25rem; margin:0}
 
-    /* ===== NAV ===== */
-    .links-bar{
-      display:flex; justify-content:center; flex-wrap:wrap; gap:12px; margin-top:6px;
-    }
+    .links-bar{display:flex; gap:10px; flex-wrap:wrap; justify-content:center; padding:8px 0}
     .pill{
       display:inline-flex; align-items:center; gap:8px;
-      padding:10px 16px; border-radius:999px; font-weight:600;
+      padding:8px 14px; border-radius:999px; font-weight:600; font-size:.95rem;
       background:var(--pill-bg); border:1px solid var(--pill-border);
-      transition:.2s; cursor:pointer;
+      box-shadow:var(--shadow); transition:.2s
     }
-    .pill:hover{transform:translateY(-2px); border-color:rgba(255,255,255,.2)}
+    .pill:hover{transform:translateY(-2px); border-color:#3a3a3a}
 
-    /* ===== HERO ===== */
-    .hero{padding:28px 0 20px}
+    .hero{padding:18px 0 8px}
     .badge{display:inline-block; padding:6px 12px; border-radius:12px; background:rgba(255,122,24,.15); border:1px solid rgba(255,122,24,.35)}
-    .hero h2{font-size:2.2rem; margin:.5rem 0 0; line-height:1.2;}
-    .hero p{color:var(--muted); margin:.4rem 0 0}
+    .hero h2{font-size:2rem; margin:8px 0 0; line-height:1.2}
+    .hero p{color:var(--muted); margin:6px 0 0}
 
-    /* ===== CARTES ===== */
-    section{padding:28px 0; scroll-margin-top:130px;}
-    .section-title{font-size:1.45rem; margin:0 0 16px; position:relative; display:inline-block}
-    .section-title::after{content:""; position:absolute; left:0; bottom:-6px; height:3px; width:60%; background:linear-gradient(90deg,var(--brand1),var(--brand2)); border-radius:2px}
+    /* ===== Sections & cartes ===== */
+    main{padding:10px 0 40px}
+    section{padding:26px 0; scroll-margin-top:90px}
+    .section-title{font-size:1.35rem; margin:0 0 14px; position:relative; display:inline-block}
+    .section-title::after{content:""; position:absolute; left:0; bottom:-6px; height:3px; width:58%; background:linear-gradient(90deg,var(--brand1),var(--brand2)); border-radius:2px}
+
     .grid{display:grid; gap:14px}
-    .grid.cols-2{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
-    .grid.cols-3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+    .grid.cols-2{grid-template-columns:repeat(auto-fit, minmax(260px,1fr))}
+    .grid.cols-3{grid-template-columns:repeat(auto-fit, minmax(220px,1fr))}
+
     .card{
       background:rgba(20,20,20,.6);
       border:1px solid rgba(255,255,255,.08);
       border-radius:var(--radius);
       padding:16px;
       box-shadow:var(--shadow);
-      backdrop-filter:blur(6px);
+      backdrop-filter:blur(6px)
     }
-    .item{display:flex; justify-content:space-between; gap:10px; padding:10px 0; border-bottom:1px dashed #2a2a2a}
-    .item:last-child{border:none}
+    .item{display:flex; justify-content:space-between; align-items:flex-start; gap:10px; padding:10px 0; border-bottom:1px dashed #2a2a2a}
+    .item:last-child{border-bottom:none}
     .item .name{font-weight:700}
-    .item .desc{color:var(--muted); font-size:.9rem}
-    .price{font-weight:800; background:linear-gradient(90deg,var(--brand1),var(--brand2)); -webkit-background-clip:text; background-clip:text; color:transparent}
+    .item .desc{color:var(--muted); font-size:.92rem}
+    .price{font-weight:900; background:linear-gradient(90deg,var(--brand1),var(--brand2)); -webkit-background-clip:text; background-clip:text; color:transparent}
 
-    /* ===== ALLERGÈNES ===== */
+    /* Allergènes & partenaires */
     .legend{display:flex; flex-wrap:wrap; gap:8px}
     .allergen-badge{padding:4px 8px; border:1px solid #333; border-radius:8px; font-size:.8rem; background:#151515}
+    .logos-partners{display:flex; flex-wrap:wrap; gap:16px; align-items:center; justify-content:center}
+    .logo-partenaire{height:52px; width:auto; filter:drop-shadow(0 2px 6px rgba(0,0,0,.25))}
 
-    /* ===== PARTENAIRES ===== */
-    .logos-partners{display:flex; flex-wrap:wrap; gap:14px; align-items:center}
-    .logo-partenaire{height:48px; width:auto; filter:drop-shadow(0 2px 6px rgba(0,0,0,.3))}
+    footer{border-top:1px solid var(--line); color:var(--muted); text-align:center; padding:24px 0; font-size:.95rem}
 
-    /* ===== FOOTER ===== */
-    footer{border-top:1px solid #1f1f1f; color:var(--muted); padding:24px 0; font-size:.9rem}
-
-    /* ===== MOBILE ===== */
-    @media(max-width:540px){
-      .brand img{width:60px; height:60px}
+    /* ===== Mobile ===== */
+    @media (max-width:540px){
+      .brand img{width:56px; height:56px}
       .brand h1{font-size:1rem}
-      .links-bar{overflow-x:auto; white-space:nowrap; padding:8px; scrollbar-width:none;}
-      .links-bar::-webkit-scrollbar{display:none;}
-      .bg-logo{background-size:360px; background-position:center 140px;}
+      .hero h2{font-size:1.45rem}
+      .bg-logo{background-size:360px; background-position:center 160px}
+      .links-bar{overflow-x:auto; white-space:nowrap; padding:8px; gap:8px; scrollbar-width:none}
+      .links-bar::-webkit-scrollbar{display:none}
     }
   </style>
 </head>
 <body>
-
-<div class="bg-wrap"><div class="bg-halo"></div><div class="bg-logo"></div></div>
-
-<header>
-  <div class="wrap topbar">
-    <div class="brand">
-      <img src="logo noir.jpeg" alt="Logo Chicken Bar" loading="lazy" />
-      <h1>Chicken Bar</h1>
-    </div>
+  <!-- Fond -->
+  <div class="bg-wrap" aria-hidden="true">
+    <div class="bg-glow"></div>
+    <div class="bg-logo"></div>
   </div>
-  <nav class="links-bar">
-    <a class="pill" href="#menu">🍗 Menu</a>
-    <a class="pill" href="#planning">📍 Localisation</a>
-    <a class="pill" href="#partenaires">🤝 Partenaires</a>
-  </nav>
-  <div class="wrap hero">
-    <span class="badge">Produit halal certifié</span>
-    <h2>🍗 Pilons croustillants, recettes maison & menus pour toutes les faims.</h2>
-    <p>Sur place, à emporter ou en livraison locale. Fraîcheur, goût et générosité 🔥</p>
-  </div>
-</header>
 
-<main id="menu" class="wrap">
-
-  <!-- MENUS -->
-  <section>
-    <h3 class="section-title">🍽️ Nos menus Chicken</h3>
-    <div class="grid cols-3">
-      <div class="card">
-        <div class="item"><div><div class="name">Menu cuisse 🍗</div><div class="desc">1 cuisse • 1 accompagnement • 1 boisson 33cl 🥤</div></div><div class="price">11€</div></div>
-        <div class="item"><div><div class="name">Menu 3 pilons 🔥</div><div class="desc">3 pilons • 1 accompagnement • 1 boisson 🥤</div></div><div class="price">9€</div></div>
-        <div class="item"><div><div class="name">Menu stick 🍢</div><div class="desc">5 sticks • 1 accompagnement • 1 boisson 🥤</div></div><div class="price">8€</div></div>
-        <div class="item"><div><div class="name">Menu poulet entier 🍗🍗</div><div class="desc">1 poulet entier • 1 accompagnement • 1 boisson 🥤</div></div><div class="price">18€</div></div>
-        <div class="item"><div><div class="name">Chicken Party 🎉</div><div class="desc">Assortiment de poulet • 3 accompagnements • 2 bouteilles</div></div><div class="price">50€</div></div>
+  <!-- Header -->
+  <header>
+    <div class="wrap topbar">
+      <div class="brand">
+        <img src="logo noir.jpeg" alt="Logo Chicken Bar" />
+        <h1>Chicken Bar</h1>
       </div>
     </div>
-  </section>
-
-  <!-- SOLO -->
-  <section>
-    <h3 class="section-title">🥇 Produits Chicken — Solo</h3>
-    <div class="grid cols-2">
-      <div class="card">
-        <div class="item"><div><div class="name">Aile 🪽</div><div class="desc">À l’unité</div></div><div class="price">0,70€</div></div>
-        <div class="item"><div><div class="name">Ailes (lot de 4) 🪽🪽🪽🪽</div><div class="desc">Combo malin</div></div><div class="price">2€</div></div>
-        <div class="item"><div><div class="name">Pilon mariné 🧄</div><div class="desc">Saveur maison</div></div><div class="price">2€</div></div>
-        <div class="item"><div><div class="name">Pilon chapelure bretzel 🥨</div><div class="desc">Ultra croustillant</div></div><div class="price">2,30€</div></div>
-        <div class="item"><div><div class="name">Pilon piment 🌶️</div><div class="desc">Pour les amateurs d’épicé</div></div><div class="price">2,30€</div></div>
-      </div>
-      <div class="card">
-        <div class="item"><div><div class="name">Cuisse marinée 🍗</div><div class="desc">Juteuse & fondante</div></div><div class="price">3€</div></div>
-        <div class="item"><div><div class="name">Poulet entier 🍗🍗</div><div class="desc">À partager en famille</div></div><div class="price">12€</div></div>
-        <div class="item"><div><div class="name">Poulet citron 🍋</div><div class="desc">Zeste & fraîcheur</div></div><div class="price">14€</div></div>
-        <div class="item"><div><div class="name">Sticks (x4) 🍢</div><div class="desc">Idéal snack</div></div><div class="price">2€</div></div>
-        <div class="item"><div><div class="name">Tenders (pièce)</div><div class="desc">Moelleux à cœur</div></div><div class="price">1€</div></div>
-      </div>
+    <nav class="links-bar wrap" aria-label="Navigation">
+      <a class="pill" href="#menu">🍽️ Menu</a>
+      <a class="pill" href="#planning">📍 Localisation</a>
+      <a class="pill" href="#partenaires">🤝 Partenaires</a>
+    </nav>
+    <div class="wrap hero">
+      <span class="badge">Produit halal certifié</span>
+      <h2>🍗 Pilons croustillants, recettes maison & menus pour toutes les faims.</h2>
+      <p>Sur place, à emporter ou en livraison locale. Fraîcheur, goût et générosité 🔥</p>
     </div>
-  </section>
+  </header>
 
-  <!-- ACCOMPAGNEMENTS / DESSERTS / BOISSONS -->
-  <section>
-    <div class="grid cols-3">
-      <div class="card">
-        <h3 class="section-title" style="margin-top:0">🥗 Accompagnements</h3>
-        <div class="item"><div class="name">Riz 🍚</div><div class="price">3€</div></div>
-        <div class="item"><div class="name">Pommes de terre sautées 🥔</div><div class="price">3€</div></div>
-        <div class="item"><div class="name">Crudités 🥗</div><div class="price">3€</div></div>
-        <div class="item"><div class="name">Frites 🍟</div><div class="price">3€</div></div>
+  <main id="menu" class="wrap">
+    <!-- MENUS -->
+    <section>
+      <h3 class="section-title">🍽️ Nos menus Chicken</h3>
+      <div class="grid cols-3">
+        <div class="card">
+          <div class="item"><div><div class="name">Menu cuisse 🍗</div><div class="desc">1 cuisse • 1 accompagnement • 1 boisson 33cl 🥤</div></div><div class="price">11€</div></div>
+          <div class="item"><div><div class="name">Menu 3 pilons 🔥</div><div class="desc">3 pilons • 1 accompagnement • 1 boisson 33cl 🥤</div></div><div class="price">9€</div></div>
+          <div class="item"><div><div class="name">Menu stick 🍢</div><div class="desc">5 sticks • 1 accompagnement • 1 boisson 33cl 🥤</div></div><div class="price">8€</div></div>
+          <div class="item"><div><div class="name">Menu poulet entier 🍗🍗</div><div class="desc">1 poulet entier • 1 accompagnement • 1 boisson 33cl 🥤</div></div><div class="price">18€</div></div>
+          <div class="item"><div><div class="name">Chicken Party 🎉</div><div class="desc">Assortiment • 3 accompagnements • 2 bouteilles 🥤</div></div><div class="price">50€</div></div>
+        </div>
       </div>
-      <div class="card">
-        <h3 class="section-title" style="margin-top:0">🍰 Desserts</h3>
-        <div class="item"><div class="name">Tiramisu 🍮</div><div class="price">2,30€</div></div>
-      </div>
-      <div class="card">
-        <h3 class="section-title" style="margin-top:0">🥤 Boissons</h3>
-        <div class="item"><div class="name">33 cl (au choix)</div><div class="price">1,70€</div></div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- OFFRE -->
-  <section>
-    <h3 class="section-title">💥 Offre du mois</h3>
+    <!-- SOLO -->
+    <section>
+      <h3 class="section-title">🥇 Produits Chicken — Solo</h3>
+      <div class="grid cols-2">
+        <div class="card">
+          <div class="item"><div><div class="name">Aile 🪽</div><div class="desc">À l’unité</div></div><div class="price">0,70€</div></div>
+          <div class="item"><div><div class="name">Ailes (x4) 🪽🪽🪽🪽</div><div class="desc">Combo malin</div></div><div class="price">2€</div></div>
+          <div class="item"><div><div class="name">Pilon mariné 🧄</div><div class="desc">Saveur maison</div></div><div class="price">2€</div></div>
+          <div class="item"><div><div class="name">Pilon chapelure bretzel 🥨</div><div class="desc">Ultra croustillant</div></div><div class="price">2,30€</div></div>
+          <div class="item"><div><div class="name">Pilon piment 🌶️</div><div class="desc">Pour les amateurs d’épicé</div></div><div class="price">2,30€</div></div>
+        </div>
+        <div class="card">
+          <div class="item"><div><div class="name">Cuisse marinée 🍗</div><div class="desc">Juteuse & fondante</div></div><div class="price">3€</div></div>
+          <div class="item"><div><div class="name">Poulet entier 🍗🍗</div><div class="desc">À partager</div></div><div class="price">12€</div></div>
+          <div class="item"><div><div class="name">Poulet citron 🍋</div><div class="desc">Zeste & fraîcheur</div></div><div class="price">14€</div></div>
+          <div class="item"><div><div class="name">Sticks (x4) 🍢</div><div class="desc">Idéal snack</div></div><div class="price">2€</div></div>
+          <div class="item"><div><div class="name">Tenders (pièce)</div><div class="desc">Moelleux à cœur</div></div><div class="price">1€</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACCOMPAGNEMENTS / DESSERTS / BOISSONS -->
+    <section>
+      <div class="grid cols-3">
+        <div class="card">
+          <h3 class="section-title" style="margin-top:0">🥗 Accompagnements</h3>
+          <div class="item"><div class="name">Riz 🍚</div><div class="price">3€</div></div>
+          <div class="item"><div class="name">Pommes de terre sautées 🥔</div><div class="price">3€</div></div>
+          <div class="item"><div class="name">Crudités 🥗</div><div class="price">3€</div></div>
+          <div class="item"><div class="name">Frites 🍟</div><div class="price">3€</div></div>
+        </div>
+        <div class="card">
+          <h3 class="section-title" style="margin-top:0">🍰 Desserts</h3>
+          <div class="item"><div class="name">Tiramisu 🍮</div><div class="price">2,30€</div></div>
+        </div>
+        <div class="card">
+          <h3 class="section-title" style="margin-top:0">🥤 Boissons</h3>
+          <div class="item"><div class="name">33 cl (au choix)</div><div class="price">1,70€</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OFFRE -->
+    <section>
+      <h3 class="section-title">💥 Offre du mois</h3>
+      <div class="card">
+        <div class="item">
+          <div><div class="name">Surprise du Chef 🎁</div><div class="desc">Personnalisez ce bloc avec votre promo actuelle.</div></div>
+          <div class="price">?€</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PLANNING -->
+    <section id="planning">
+      <h3 class="section-title">📍 Planning de localisation</h3>
+      <div class="card">
+        <table style="width:100%; border-collapse:collapse; color:inherit;">
+          <thead>
+            <tr style="border-bottom:1px solid var(--line);">
+              <th style="text-align:left; padding:10px;">Jour</th>
+              <th style="text-align:left; padding:10px;">Lieu</th>
+              <th style="text-align:left; padding:10px;">Horaires</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="padding:10px;">Lundi</td><td style="padding:10px;"></td><td style="padding:10px;"></td></tr>
+            <tr><td style="padding:10px;">Mardi</td><td style="padding:10px;"></td><td style="padding:10px;"></td></tr>
+            <tr><td style="padding:10px;">Mercredi</td><td style="padding:10px;">Marché d'Illkirch</td><td style="padding:10px;">8h – 13h</td></tr>
+            <tr><td style="padding:10px;">Jeudi</td><td style="padding:10px;"></td><td style="padding:10px;"></td></tr>
+            <tr><td style="padding:10px;">Vendredi</td><td style="padding:10px;"></td><td style="padding:10px;"></td></tr>
+            <tr><td style="padding:10px;">Samedi</td><td style="padding:10px;">Marché d'Illkirch</td><td style="padding:10px;">8h – 13h</td></tr>
+            <tr><td style="padding:10px;">Dimanche</td><td style="padding:10px;">Repos 😴</td><td style="padding:10px;">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ALLERGÈNES (14 officiels) -->
+    <section id="allergenes">
+      <h3 class="section-title">⚠️ Allergènes</h3>
+      <div class="card">
+        <p class="desc" style="margin:0 0 10px; color:var(--muted)">
+          Nos préparations peuvent contenir des traces d’allergènes. En cas d’allergie, merci de le signaler lors de la commande.
+        </p>
+        <div class="legend">
+          <span class="allergen-badge" title="Gluten">GLU</span>
+          <span class="allergen-badge" title="Crustacés">CRU</span>
+          <span class="allergen-badge" title="Œufs">OEU</span>
+          <span class="allergen-badge" title="Poissons">POI</span>
+          <span class="allergen-badge" title="Arachides">ARA</span>
+          <span class="allergen-badge" title="Soja">SOJ</span>
+          <span class="allergen-badge" title="Lait">LAI</span>
+          <span class="allergen-badge" title="Fruits à coque">NOI</span>
+          <span class="allergen-badge" title="Céleri">CEL</span>
+          <span class="allergen-badge" title="Moutarde">MOU</span>
+          <span class="allergen-badge" title="Graines de sésame">SES</span>
+          <span class="allergen-badge" title="Sulfites">SUL</span>
+          <span class="allergen-badge" title="Lupin">LUP</span>
+          <span class="allergen-badge" title="Mollusques">MOL</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- PARTENAIRES -->
+  <section id="partenaires" class="wrap">
+    <h3 class="section-title">🤝 Partenaires</h3>
     <div class="card">
-      <div class="item">
-        <div><div class="name">Surprise du Chef 🎁</div><div class="desc">Personnalisez ce bloc avec votre promo actuelle</div></div>
-        <div class="price">?€</div>
+      <div class="logos-partners">
+        <a href="https://www.facebook.com/fcoostwald" target="_blank" rel="noopener">
+          <img src="logofcoswald.png" alt="FC Ostwald" class="logo-partenaire">
+        </a>
+        <a href="https://www.bge.asso.fr" target="_blank" rel="noopener">
+          <img src="bge.png" alt="BGE" class="logo-partenaire">
+        </a>
+        <a href="https://www.instagram.com/graphigoat/" target="_blank" rel="noopener">
+          <img src="graphi-goat.png" alt="GraphiGoat" class="logo-partenaire">
+        </a>
+        <a href="https://adam-boissons.fr" target="_blank" rel="noopener">
+          <img src="adam-boissons.jpg" alt="Adam Boissons" class="logo-partenaire">
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- PLANNING -->
-  <section id="planning">
-    <h3 class="section-title">📍 Planning de localisation</h3>
-    <div class="card">
-      <table style="width:100%; border-collapse:collapse; color:inherit;">
-        <thead><tr><th style="text-align:left; padding:10px;">Jour</th><th style="text-align:left; padding:10px;">Lieu</th><th style="text-align:left; padding:10px;">Horaires</th></tr></thead>
-        <tbody>
-          <tr><td style="padding:10px;">Lundi</td><td></td><td></td></tr>
-          <tr><td style="padding:10px;">Mardi</td><td></td><td></td></tr>
-          <tr><td style="padding:10px;">Mercredi</td><td>Marché d'Illkirch</td><td>8h – 13h</td></tr>
-          <tr><td style="padding:10px;">Jeudi</td><td></td><td></td></tr>
-          <tr><td style="padding:10px;">Vendredi</td><td></td><td></td></tr>
-          <tr><td style="padding:10px;">Samedi</td><td>Marché d'Illkirch</td><td>8h – 13h</td></tr>
-          <tr><td style="padding:10px;">Dimanche</td><td>Repos 😴</td><td>—</td></tr>
-        </tbody>
-      </table>
+  <footer>
+    <div class="wrap">
+      <div>© <span id="y"></span> Chicken Bar — Tous droits réservés. SIREN : 992 441 504</div>
+      <div style="margin-top:6px">Contact : <a href="tel:+33632028114">06 32 02 81 14</a> · <a href="mailto:chickenbar67@gmail.com">chickenbar67@gmail.com</a></div>
     </div>
-  </section>
+  </footer>
 
-  <!-- ALLERGÈNES -->
-  <section id="allergenes">
-    <h3 class="section-title">⚠️ Allergènes</h3>
-    <div class="card">
-      <p class="desc" style="margin:0 0 10px;color:var(--muted)">
-        Nos préparations peuvent contenir des traces d’allergènes. En cas d’allergie, signalez-le lors de la commande.
-      </p>
-      <div class="legend">
-        <span class="allergen-badge">GLU</span>
-        <span class="allergen-badge">CRU</span>
-        <span class="allergen-badge">OEU</span>
-        <span class="allergen-badge">POI</span>
-        <span class="allergen-badge">ARA</span>
-        <span class="allergen-badge">SOJ</span>
-        <span class="allergen-badge">LAI</span>
-        <span class="allergen-badge">NOI</span>
-        <span class="allergen-badge">CEL</span>
-        <span class="allergen-badge">MOU</span>
-        <span class="allergen-badge">SES</span>
-        <span class="allergen-badge">SUL</span>
-        <span class="allergen-badge">LUP</span>
-        <span class="allergen-badge">MOL</span>
-      </div>
-    </div>
-  </section>
-</main>
-
-<!-- PARTENAIRES -->
-<section id="partenaires" class="wrap">
-  <h3 class="section-title">🤝 Partenaires</h3>
-  <div class="card">
-    <div class="logos-partners">
-      <a href="https://www.facebook.com/fcoostwald" target="_blank"><img src="logofcoswald.png" alt="FC Ostwald" class="logo-partenaire"></a>
-      <a href="https://www.bge.asso.fr" target="_blank"><img src="bge.png" alt="BGE" class="logo-partenaire"></a>
-      <a href="https://www.instagram.com/graphigoat/" target="_blank"><img src="graphi-goat.png" alt="GraphiGoat" class="logo-partenaire"></a>
-      <a href="https://adam-boissons.fr" target="_blank"><img src="adam-boissons.jpg" alt="Adam Boissons" class="logo-partenaire"></a>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="wrap">
-    <div>© <span id="y"></span> Chicken Bar — Tous droits réservés. SIREN : 992 441 504</div>
-    <div style="margin-top:6px">
-      Contact : <a href="tel:+33632028114">06 32 02 81 14</a> ·
-      <a href="mailto:chickenbar67@gmail.com">chickenbar67@gmail.com</a>
-    </div>
-  </div>
-</footer>
-
-<script>
-  document.getElementById('y').textContent = new Date().getFullYear();
-</script>
+  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
 </body>
 </html>
