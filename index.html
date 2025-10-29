@@ -38,11 +38,11 @@
     }
     .bg-logo{
       position:absolute; inset:0;
-      background-image:url("logo noir.jpeg");
+      background-image:url("logo noir.jpeg"); /* même logo que le bandeau */
       background-repeat:no-repeat;
-      background-size:750px;
+      background-size:750px;                  /* visible sur PC */
       background-position:center 180px;
-      opacity:.28;
+      opacity:.28;                            /* plus visible mais discret */
       filter:saturate(1.1) contrast(1.05);
     }
     .backdrop{
@@ -54,7 +54,7 @@
 
     .wrap{max-width:1100px; margin:0 auto; padding:0 20px; position:relative; z-index:2}
 
-    /* ===== HEADER FIXE ===== */
+    /* ===== HEADER FIXE (bandeau fin) ===== */
     header{
       position:fixed; left:0; right:0; top:0; z-index:3;
       background:
@@ -73,14 +73,12 @@
     .brand{display:flex; align-items:center; gap:12px}
     .brand img{width:64px; height:64px; object-fit:contain}
     .brand h1{font-size:1.15rem; margin:0; letter-spacing:.4px}
-
     header.compact { box-shadow:0 8px 24px rgba(0,0,0,.28) }
     header.compact .brand img{ width:56px; height:56px }
 
     /* NAV */
     .links-bar{display:flex; gap:12px; justify-content:center; width:100%;}
     .nav-row{display:flex; align-items:center; gap:12px; justify-content:center; width:100%}
-
     .pill{
       display:inline-flex; align-items:center; gap:8px;
       padding:10px 16px; border-radius:999px; font-weight:800; font-size:.95rem;
@@ -168,6 +166,7 @@
   </style>
 </head>
 <body>
+  <!-- Calques de fond -->
   <div class="bg-wrap" aria-hidden="true">
     <div class="bg-halo"></div>
     <div class="bg-logo"></div>
@@ -181,7 +180,7 @@
         <img src="logo noir.jpeg" alt="Logo Chicken Bar" loading="lazy" />
         <h1>Chicken Bar</h1>
       </div>
-      <nav class="links-bar">
+      <nav class="links-bar" aria-label="Navigation principale">
         <div class="nav-row">
           <a class="pill" href="#menu">Menu</a>
           <a class="pill" href="#planning">Localisation</a>
@@ -190,6 +189,7 @@
         </div>
       </nav>
     </div>
+
     <div class="wrap hero">
       <span class="badge">Produit halal certifié</span>
       <h2>🍗 Pilons croustillants, recettes maison & menus pour toutes les faims.</h2>
@@ -197,12 +197,154 @@
     </div>
   </header>
 
+  <!-- CONTENU -->
   <main id="menu" class="wrap">
-    <!-- Exemple contenu réduit pour lisibilité -->
+    <!-- MENUS CHICKEN -->
     <section>
       <h3 class="section-title">🍽️ Nos menus Chicken</h3>
       <div class="card">
-        <div class="item"><div><div class="name">Menu 3 pilons 🔥</div><div class="desc">3 pilons + frites + boisson</div></div><div class="price">9,50€</div></div>
+        <div class="item">
+          <div>
+            <div class="name">Menu cuisse 🍗</div>
+            <div class="desc">1 cuisse • 1 accompagnement au choix • 1 boisson 33cl au choix 🥤</div>
+          </div>
+          <div class="price">7€</div>
+        </div>
+        <div class="item">
+          <div>
+            <div class="name">Menu "tenders" 🍢</div>
+            <div class="desc">3 tenders • 1 accompagnement au choix • 1 boisson 33cl au choix 🥤</div>
+          </div>
+          <div class="price">8,50€</div>
+        </div>
+        <div class="item">
+          <div>
+            <div class="name">Menu 3 pilons 🔥</div>
+            <div class="desc">3 pilons au choix • 1 accompagnement au choix • 1 boisson 33cl au choix 🥤</div>
+          </div>
+          <div class="price">9,50€</div>
+        </div>
+        <div class="item">
+          <div>
+            <div class="name">Menu poulet entier 🍗</div>
+            <div class="desc">1 poulet au choix • 1 accompagnement au choix • 1 boisson 33cl au choix 🥤</div>
+          </div>
+          <div class="price">15€</div>
+        </div>
+        <div class="item">
+          <div>
+            <div class="name">Chicken Party 🎉</div>
+            <div class="desc">Assortiment (3 lots d'ailes, 10 pilons, 15 tenders) • 3 accompagnements • 2 bouteilles 1,5 L 🥤</div>
+          </div>
+          <div class="price">50€</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOLO -->
+    <section>
+      <h3 class="section-title">🥇 Nos produits Chicken — Solo</h3>
+      <div class="grid cols-2">
+        <div class="card">
+          <div class="item"><div><div class="name">Ailes (à l’unité) 🪽</div><div class="desc">Idéales pour grignoter</div></div><div class="price">0,70€</div></div>
+          <div class="item"><div><div class="name">Ailes (lot de 4) 🪽🪽🪽🪽</div><div class="desc">Petit combo malin</div></div><div class="price">2€</div></div>
+          <div class="item"><div><div class="name">Pilon mariné 🧄</div><div class="desc">Marinade maison parfumée</div></div><div class="price">2€</div></div>
+          <div class="item"><div><div class="name">Pilon chapelure bretzel 🥨</div><div class="desc">Ultra croustillant</div></div><div class="price">2,30€</div></div>
+          <!-- Pilon chapelure normal supprimé -->
+          <div class="item"><div><div class="name">Pilon piment 🌶️</div><div class="desc">Pour les amateurs d’épicé</div></div><div class="price">2,30€</div></div>
+        </div>
+        <div class="card">
+          <div class="item"><div><div class="name">Tenders (pièce) 🍗</div><div class="desc">Moelleux à cœur</div></div><div class="price">1,50€</div></div>
+          <div class="item"><div><div class="name">Cuisse marinée 🍗</div><div class="desc">Juteuse & fondante</div></div><div class="price">3,50€</div></div>
+          <div class="item"><div><div class="name">Poulet entier 🍗🍗</div><div class="desc">À partager en famille</div></div><div class="price">11€</div></div>
+          <div class="item"><div><div class="name">Poulet entier citron 🍋</div><div class="desc">Zeste & fraîcheur</div></div><div class="price">12,50€</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACCOMPAGNEMENTS / DESSERTS / BOISSONS -->
+    <section>
+      <div class="grid cols-3">
+        <div class="card">
+          <h3 class="section-title" style="margin-top:0">🥗 Accompagnements</h3>
+          <div class="item"><div class="name">Barquette de riz 🍚</div><div class="price">3€</div></div>
+          <div class="item"><div class="name">Pommes de terre sautées 🥔</div><div class="price">3€</div></div>
+          <div class="item"><div class="name">Crudités 🥗</div><div class="price">3€</div></div>
+          <div class="item"><div class="name">Frites 🍟</div><div class="price">3€</div></div>
+        </div>
+        <div class="card">
+          <h3 class="section-title" style="margin-top:0">🍰 Desserts</h3>
+          <div class="item"><div class="name">Tiramisu 🍮</div><div class="price">2,30€</div></div>
+        </div>
+        <div class="card">
+          <h3 class="section-title" style="margin-top:0">🥤 Boissons</h3>
+          <div class="item"><div class="name">33 cl (au choix) 🥤</div><div class="price">1,70€</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OFFRE DU MOIS -->
+    <section>
+      <h3 class="section-title">💥 Offre du mois</h3>
+      <div class="card">
+        <div class="item">
+          <div>
+            <div class="name">Surprise du Chef</div>
+            <div class="desc">Personnalisez ce bloc avec votre promo actuelle 🎁</div>
+          </div>
+          <div class="price">?€</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PLANNING -->
+    <section id="planning">
+      <h3 class="section-title">📍 Planning de localisation</h3>
+      <div class="card">
+        <table style="width:100%; border-collapse:collapse; color:inherit;">
+          <thead>
+            <tr style="border-bottom:1px solid var(--line);">
+              <th style="text-align:left; padding:10px;">Jour</th>
+              <th style="text-align:left; padding:10px;">Lieu</th>
+              <th style="text-align:left; padding:10px;">Horaires</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="padding:10px;">Lundi</td><td style="padding:10px;">...........</td><td style="padding:10px;"></td></tr>
+            <tr><td style="padding:10px;">Mardi</td><td style="padding:10px;">...........</td><td style="padding:10px;"></td></tr>
+            <tr><td style="padding:10px;">Mercredi</td><td style="padding:10px;">marché d'Illkirch</td><td style="padding:10px;">8h – 13h</td></tr>
+            <tr><td style="padding:10px;">Jeudi</td><td style="padding:10px;">...........</td><td style="padding:10px;"></td></tr>
+            <tr><td style="padding:10px;">Vendredi</td><td style="padding:10px;">........</td><td style="padding:10px;"></td></tr>
+            <tr><td style="padding:10px;">Samedi</td><td style="padding:10px;">marché d'Illkirch</td><td style="padding:10px;">8h – 13h</td></tr>
+            <tr><td style="padding:10px;">Dimanche</td><td style="padding:10px;">........</td><td style="padding:10px;">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ALLERGÈNES -->
+    <section id="allergenes">
+      <h3 class="section-title">⚠️ Allergènes</h3>
+      <div class="card">
+        <p class="desc" style="margin:0 0 10px;color:var(--muted)">
+          Nos préparations peuvent contenir des traces d’allergènes. En cas d’allergie, signalez-le lors de la commande.
+        </p>
+        <div class="legend">
+          <span class="allergen-badge" title="Gluten">GLU</span>
+          <span class="allergen-badge" title="Crustacés">CRU</span>
+          <span class="allergen-badge" title="Œufs">OEU</span>
+          <span class="allergen-badge" title="Poissons">POI</span>
+          <span class="allergen-badge" title="Arachides">ARA</span>
+          <span class="allergen-badge" title="Soja">SOJ</span>
+          <span class="allergen-badge" title="Lait">LAI</span>
+          <span class="allergen-badge" title="Fruits à coque">NOI</span>
+          <span class="allergen-badge" title="Céleri">CEL</span>
+          <span class="allergen-badge" title="Moutarde">MOU</span>
+          <span class="allergen-badge" title="Graines de sésame">SES</span>
+          <span class="allergen-badge" title="Sulfites">SUL</span>
+          <span class="allergen-badge" title="Lupin">LUP</span>
+          <span class="allergen-badge" title="Mollusques">MOL</span>
+        </div>
       </div>
     </section>
   </main>
@@ -212,15 +354,23 @@
     <h3 class="section-title">🤝 Partenaires</h3>
     <div class="card">
       <div class="logos-partners">
-        <img src="logofcoswald.png" alt="FC Ostwald" class="logo-partenaire">
-        <img src="bge.png" alt="BGE" class="logo-partenaire">
-        <img src="graphi-goat.png" alt="GraphiGoat" class="logo-partenaire">
-        <img src="adam-boissons.jpg" alt="Adam Boissons" class="logo-partenaire">
+        <a href="https://www.facebook.com/fcoostwald" target="_blank" rel="noopener noreferrer">
+          <img src="logofcoswald.png" alt="FC Ostwald" class="logo-partenaire" loading="lazy">
+        </a>
+        <a href="https://www.bge.asso.fr" target="_blank" rel="noopener noreferrer">
+          <img src="bge.png" alt="BGE" class="logo-partenaire" loading="lazy">
+        </a>
+        <a href="https://www.instagram.com/graphigoat/" target="_blank" rel="noopener noreferrer">
+          <img src="graphi-goat.png" alt="GraphiGoat" class="logo-partenaire" loading="lazy">
+        </a>
+        <a href="https://adam-boissons.fr" target="_blank" rel="noopener noreferrer">
+          <img src="adam-boissons.jpg" alt="Adam Boissons" class="logo-partenaire" loading="lazy">
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- ÉVÉNEMENTS -->
+  <!-- ÉVÉNEMENTS (cible du menu) -->
   <section id="evenements" class="event-banner">
     <div class="event-content">
       <h2>🍗 Événements & Fêtes Privées 🎉</h2>
@@ -237,18 +387,33 @@
     </div>
   </footer>
 
+  <!-- Bouton retour en haut -->
+  <button id="toTop" class="to-top" aria-label="Revenir en haut" title="Haut de page" style="display:none">⬆️ Haut</button>
+
   <script>
+    // Année dynamique
     document.getElementById('y').textContent = new Date().getFullYear();
 
-    // Header compact
+    // Ajuste le padding-top selon la hauteur du header
     const header = document.getElementById('siteHeader');
     const setHeaderPad = () => {
       document.documentElement.style.setProperty('--header-pad', header.offsetHeight + 'px');
     };
     window.addEventListener('resize', setHeaderPad);
+    window.addEventListener('load', setHeaderPad);
     setHeaderPad();
 
-    // Scroll compensé pour header fixe (iPhone/Safari friendly)
+    // Header compact au scroll + bouton top
+    const toTop = document.getElementById('toTop');
+    function onScroll(){
+      if (window.scrollY > 8) header.classList.add('compact'); else header.classList.remove('compact');
+      if (window.scrollY > 450) toTop.style.display='inline-flex'; else toTop.style.display='none';
+    }
+    onScroll();
+    window.addEventListener('scroll', onScroll, {passive:true});
+    toTop.addEventListener('click', ()=>window.scrollTo({top:0, behavior:'smooth'}));
+
+    // Scroll ancre compensé (iPhone/Safari OK)
     (function() {
       function scrollToHash(hash) {
         const el = document.querySelector(hash);
