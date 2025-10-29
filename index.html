@@ -22,7 +22,7 @@
     html,body{
       margin:0; padding:0; color:var(--fg);
       font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      scroll-behavior:smooth;
+      scroll-behavior:smooth; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
     }
     a{color:inherit; text-decoration:none}
 
@@ -54,55 +54,57 @@
 
     .wrap{max-width:1100px; margin:0 auto; padding:0 20px; position:relative; z-index:2}
 
-    /* ===== HEADER ===== */
+    /* ===== HEADER FIXE ===== */
     header{
       position:fixed; left:0; right:0; top:0; z-index:3;
-      background:rgba(10,10,10,.6);
+      background:
+        radial-gradient(110% 140% at 10% 10%, rgba(255,122,24,.10), transparent),
+        radial-gradient(120% 160% at 90% 10%, rgba(255,61,0,.12), transparent),
+        rgba(10,10,10,.58);
       backdrop-filter:saturate(1.05) blur(var(--header-blur));
+      -webkit-backdrop-filter:saturate(1.05) blur(var(--header-blur));
       border-bottom:1px solid var(--line);
-      transition: padding .18s ease, background .18s ease;
+      transition: padding .18s ease, background .18s ease, box-shadow .18s ease;
     }
     .topbar{
       display:flex; align-items:center; justify-content:space-between;
-      gap:12px; padding:6px 0;
+      gap:12px; padding:4px 0;
     }
     .brand{display:flex; align-items:center; gap:12px}
     .brand img{width:64px; height:64px; object-fit:contain}
-    .brand h1{font-size:1.15rem; margin:0}
+    .brand h1{font-size:1.15rem; margin:0; letter-spacing:.4px}
 
     header.compact { box-shadow:0 8px 24px rgba(0,0,0,.28) }
     header.compact .brand img{ width:56px; height:56px }
 
-    .links-bar{
-      display:flex; gap:12px; flex-wrap:wrap; align-items:center;
-      justify-content:center; width:100%;
-    }
+    /* NAV */
+    .links-bar{display:flex; gap:12px; justify-content:center; width:100%;}
+    .nav-row{display:flex; align-items:center; gap:12px; justify-content:center; width:100%}
 
     .pill{
       display:inline-flex; align-items:center; gap:8px;
       padding:10px 16px; border-radius:999px; font-weight:800; font-size:.95rem;
       background:var(--pill-bg); border:1px solid var(--pill-border);
       color:var(--fg); box-shadow:var(--shadow);
-      transition:transform .18s ease;
     }
     .pill:hover{ transform:translateY(-2px); border-color:#3a3a3a }
 
-    /* ===== HERO ===== */
+    /* HERO */
     .hero{ padding:18px 0 24px }
-    .badge{ display:inline-block; padding:7px 12px; border-radius:12px;
-      background:rgba(255,122,24,.16); border:1px solid rgba(255,122,24,.35);
-      font-weight:700;
+    .badge{
+      display:inline-block; padding:7px 12px; border-radius:12px; font-weight:700;
+      background:rgba(255,122,24,.16); border:1px solid rgba(255,122,24,.35)
     }
+    .hero h2{ font-size:2.2rem; margin:.5rem 0 0; line-height:1.15; text-shadow:0 2px 10px rgba(0,0,0,.15) }
+    .hero p{ color:var(--muted); margin:.6rem 0 0 }
 
-    /* ===== SECTIONS ===== */
+    /* SECTIONS */
     section{ padding:26px 0; scroll-margin-top:calc(var(--header-pad) + 12px); }
-    .section-title{
-      font-size:1.45rem; margin:0 0 16px; position:relative; display:inline-block
-    }
+    .section-title{font-size:1.45rem; margin:0 0 16px; position:relative; display:inline-block}
     .section-title::after{
       content:""; position:absolute; left:0; bottom:-6px; height:3px; width:64%;
       background:linear-gradient(90deg, var(--brand1), var(--brand2));
-      border-radius:2px;
+      border-radius:2px; opacity:.9
     }
 
     .grid{ display:grid; gap:16px }
@@ -118,7 +120,7 @@
       backdrop-filter: blur(6px);
     }
 
-    .item{ display:flex; align-items:flex-start; justify-content:space-between; gap:12px; padding:12px 0; border-bottom:1px dashed var(--line) }
+    .item{ display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px dashed var(--line) }
     .item:last-child{ border-bottom:none }
     .item .name{ font-weight:900 }
     .item .desc{ color:var(--muted); font-size:.95rem }
@@ -127,18 +129,18 @@
       -webkit-background-clip:text; color:transparent
     }
 
-    footer{ border-top:1px solid var(--line); color:var(--muted); padding:26px 0; font-size:.95rem }
-
-    /* ===== MOBILE ===== */
-    @media (max-width:540px){
-      .brand img{width:58px; height:58px}
-      .brand h1{font-size:0.95rem}
-      .links-bar{overflow-x:auto; white-space:nowrap; gap:10px; padding:8px}
-      .pill{flex:0 0 auto; padding:8px 14px; font-size:.9rem}
-      .bg-logo{background-size:360px; background-position:center 140px}
+    .legend{display:flex; flex-wrap:wrap; gap:8px}
+    .allergen-badge{
+      display:inline-block; padding:4px 8px; border:1px solid var(--pill-border);
+      border-radius:8px; font-size:.8rem; background:var(--pill-bg);
     }
 
-    /* ===== BANNIÈRE ÉVÉNEMENTS ===== */
+    .logos-partners{ display:flex; flex-wrap:wrap; gap:14px; align-items:center }
+    .logo-partenaire{ height:48px; filter: drop-shadow(0 2px 6px rgba(0,0,0,.18)) }
+
+    footer{ border-top:1px solid var(--line); color:var(--muted); padding:26px 0; font-size:.95rem }
+
+    /* ÉVÉNEMENTIEL */
     .event-banner {
       background: linear-gradient(135deg, #ff9800, #ff5722);
       color: white;
@@ -150,24 +152,22 @@
       font-family: 'Poppins', sans-serif;
       scroll-margin-top: calc(var(--header-pad) + 20px);
     }
-    .event-banner h2 {
-      font-size: 2em;
-      margin-bottom: 15px;
-      letter-spacing: 1px;
-    }
-    .event-banner p {
-      font-size: 1.2em;
-      line-height: 1.6;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    .event-banner strong {
-      color: #fff700;
+    .event-banner h2 {font-size: 2em; margin-bottom: 15px;}
+    .event-banner p {font-size: 1.2em; line-height: 1.6; max-width: 800px; margin: 0 auto;}
+    .event-banner strong { color: #fff700; }
+
+    /* MOBILE */
+    @media (max-width:540px){
+      .brand img{width:60px; height:60px}
+      .hero h2{font-size:1.4rem}
+      .links-bar{overflow-x:auto; white-space:nowrap; gap:10px; padding:8px}
+      .nav-row{display:inline-flex; gap:10px}
+      .pill{flex:0 0 auto; padding:8px 14px; font-size:.9rem}
+      .bg-logo{ background-size:360px; background-position:center 140px }
     }
   </style>
 </head>
 <body>
-  <!-- FOND -->
   <div class="bg-wrap" aria-hidden="true">
     <div class="bg-halo"></div>
     <div class="bg-logo"></div>
@@ -182,13 +182,14 @@
         <h1>Chicken Bar</h1>
       </div>
       <nav class="links-bar">
-        <a class="pill" href="#menu">Menu</a>
-        <a class="pill" href="#planning">Localisation</a>
-        <a class="pill" href="#partenaires">Partenaires</a>
-        <a class="pill" href="#evenements">Événements</a>
+        <div class="nav-row">
+          <a class="pill" href="#menu">Menu</a>
+          <a class="pill" href="#planning">Localisation</a>
+          <a class="pill" href="#partenaires">Partenaires</a>
+          <a class="pill" href="#evenements">Événements</a>
+        </div>
       </nav>
     </div>
-
     <div class="wrap hero">
       <span class="badge">Produit halal certifié</span>
       <h2>🍗 Pilons croustillants, recettes maison & menus pour toutes les faims.</h2>
@@ -196,23 +197,30 @@
     </div>
   </header>
 
-  <!-- CONTENU (menus, localisation, partenaires, etc.) -->
-  <!-- ton contenu inchangé ici -->
+  <main id="menu" class="wrap">
+    <!-- Exemple contenu réduit pour lisibilité -->
+    <section>
+      <h3 class="section-title">🍽️ Nos menus Chicken</h3>
+      <div class="card">
+        <div class="item"><div><div class="name">Menu 3 pilons 🔥</div><div class="desc">3 pilons + frites + boisson</div></div><div class="price">9,50€</div></div>
+      </div>
+    </section>
+  </main>
 
   <!-- PARTENAIRES -->
   <section id="partenaires" class="wrap">
     <h3 class="section-title">🤝 Partenaires</h3>
     <div class="card">
       <div class="logos-partners">
-        <a href="https://www.facebook.com/fcoostwald" target="_blank"><img src="logofcoswald.png" alt="FC Ostwald" class="logo-partenaire"></a>
-        <a href="https://www.bge.asso.fr" target="_blank"><img src="bge.png" alt="BGE" class="logo-partenaire"></a>
-        <a href="https://www.instagram.com/graphigoat/" target="_blank"><img src="graphi-goat.png" alt="GraphiGoat" class="logo-partenaire"></a>
-        <a href="https://adam-boissons.fr" target="_blank"><img src="adam-boissons.jpg" alt="Adam Boissons" class="logo-partenaire"></a>
+        <img src="logofcoswald.png" alt="FC Ostwald" class="logo-partenaire">
+        <img src="bge.png" alt="BGE" class="logo-partenaire">
+        <img src="graphi-goat.png" alt="GraphiGoat" class="logo-partenaire">
+        <img src="adam-boissons.jpg" alt="Adam Boissons" class="logo-partenaire">
       </div>
     </div>
   </section>
 
-  <!-- BANNIÈRE ÉVÉNEMENTS -->
+  <!-- ÉVÉNEMENTS -->
   <section id="evenements" class="event-banner">
     <div class="event-content">
       <h2>🍗 Événements & Fêtes Privées 🎉</h2>
@@ -224,19 +232,44 @@
   <footer>
     <div class="wrap">
       <div>© <span id="y"></span> Chicken Bar — Tous droits réservés. SIREN : 992 441 504</div>
-      <div style="margin-top:6px">
-        Contact : <a href="tel:+33632028114">06 32 02 81 14</a> 
-        <a href="mailto:chickenbar67@gmail.com">chickenbar67@gmail.com</a>
-      </div>
+      <div style="margin-top:6px">Contact : <a href="tel:+33632028114">06 32 02 81 14</a> ·
+        <a href="mailto:chickenbar67@gmail.com">chickenbar67@gmail.com</a></div>
     </div>
   </footer>
 
   <script>
     document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Header compact
     const header = document.getElementById('siteHeader');
-    const setHeaderPad = ()=>document.documentElement.style.setProperty('--header-pad',header.offsetHeight+'px');
-    setHeaderPad(); window.addEventListener('resize', setHeaderPad);
-    window.addEventListener('scroll',()=>header.classList.toggle('compact',window.scrollY>10));
+    const setHeaderPad = () => {
+      document.documentElement.style.setProperty('--header-pad', header.offsetHeight + 'px');
+    };
+    window.addEventListener('resize', setHeaderPad);
+    setHeaderPad();
+
+    // Scroll compensé pour header fixe (iPhone/Safari friendly)
+    (function() {
+      function scrollToHash(hash) {
+        const el = document.querySelector(hash);
+        if (!el) return;
+        const y = el.getBoundingClientRect().top + window.pageYOffset - (header?.offsetHeight || 0) - 12;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+      document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', function(e) {
+          const hash = this.getAttribute('href');
+          if (hash.length > 1) {
+            e.preventDefault();
+            history.pushState(null, '', hash);
+            scrollToHash(hash);
+          }
+        });
+      });
+      window.addEventListener('load', () => {
+        if (location.hash) setTimeout(() => scrollToHash(location.hash), 50);
+      });
+    })();
   </script>
 </body>
 </html>
