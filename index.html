@@ -47,11 +47,11 @@
     }
     .bg-logo{
       position:absolute; inset:0;
-      background-image:url("logo noir.jpeg"); 
+      background-image:url("logo noir.jpeg"); /* même logo que le bandeau */
       background-repeat:no-repeat;
-      background-size:750px; 
+      background-size:750px;                  /* visible sur PC */
       background-position:center 180px;
-      opacity:.28; 
+      opacity:.28;                            /* plus visible mais discret */
       filter:saturate(1.1) contrast(1.05);
     }
     .backdrop{
@@ -63,7 +63,7 @@
 
     .wrap{max-width:1100px; margin:0 auto; padding:0 20px; position:relative; z-index:2}
 
-    /* ===== HEADER ===== */
+    /* ===== HEADER FIXE (bandeau fin) ===== */
     header{
       position:fixed; left:0; right:0; top:0; z-index:3;
       background:
@@ -94,6 +94,7 @@
       background:var(--pill-bg); border:1px solid var(--pill-border);
       color:var(--fg); box-shadow:var(--shadow);
     }
+    .pill:hover{ transform:translateY(-2px); border-color:#3a3a3a }
 
     /* HERO */
     .hero{ padding:18px 0 24px }
@@ -141,12 +142,40 @@
       border-radius:8px; font-size:.8rem; background:var(--pill-bg);
     }
 
+    .logos-partners{ display:flex; flex-wrap:wrap; gap:14px; align-items:center }
+    .logo-partenaire{ height:48px; filter: drop-shadow(0 2px 6px rgba(0,0,0,.18)) }
+
     footer{ border-top:1px solid var(--line); color:var(--muted); padding:26px 0; font-size:.95rem }
+
+    /* ÉVÉNEMENTIEL */
+    .event-banner {
+      background: linear-gradient(135deg, #ff9800, #ff5722);
+      color: white;
+      text-align: center;
+      padding: 50px 20px;
+      border-top-left-radius: 30px;
+      border-top-right-radius: 30px;
+      box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.3);
+      font-family: 'Poppins', sans-serif;
+      scroll-margin-top: calc(var(--header-pad) + 20px);
+    }
+    .event-banner h2 {font-size: 2em; margin-bottom: 15px;}
+    .event-banner p {font-size: 1.2em; line-height: 1.6; max-width: 800px; margin: 0 auto;}
+    .event-banner strong { color: #fff700; }
+
+    /* MOBILE */
+    @media (max-width:540px){
+      .brand img{width:60px; height:60px}
+      .hero h2{font-size:1.4rem}
+      .links-bar{overflow-x:auto; white-space:nowrap; gap:10px; padding:8px}
+      .nav-row{display:inline-flex; gap:10px}
+      .pill{flex:0 0 auto; padding:8px 14px; font-size:.9rem}
+      .bg-logo{ background-size:360px; background-position:center 140px }
+    }
   </style>
 </head>
 <body>
-
-  <!-- FOND -->
+  <!-- Calques de fond -->
   <div class="bg-wrap" aria-hidden="true">
     <div class="bg-halo"></div>
     <div class="bg-logo"></div>
@@ -160,7 +189,7 @@
         <img src="logo noir.jpeg" alt="Logo Chicken Bar" loading="lazy" />
         <h1>Chicken Bar</h1>
       </div>
-      <nav class="links-bar">
+      <nav class="links-bar" aria-label="Navigation principale">
         <div class="nav-row">
           <a class="pill" href="#menu">Menu</a>
           <a class="pill" href="#planning">Localisation</a>
@@ -179,7 +208,6 @@
 
   <!-- CONTENU -->
   <main id="menu" class="wrap">
-
     <!-- MENUS CHICKEN -->
     <section>
       <h3 class="section-title">🍽️ Nos menus Chicken</h3>
@@ -187,35 +215,35 @@
         <div class="item">
           <div>
             <div class="name">Menu cuisse 🍗</div>
-            <div class="desc">1 cuisse • 1 accompagnement • 1 boisson 33cl</div>
+            <div class="desc">1 cuisse • 1 accompagnement au choix • 1 boisson 33cl au choix 🥤</div>
           </div>
           <div class="price">7,50€</div>
         </div>
         <div class="item">
           <div>
             <div class="name">Menu "tenders" 🍢</div>
-            <div class="desc">3 tenders • 1 accompagnement • 1 boisson 33cl</div>
+            <div class="desc">3 tenders • 1 accompagnement au choix • 1 boisson 33cl au choix 🥤</div>
           </div>
           <div class="price">8,50€</div>
         </div>
         <div class="item">
           <div>
             <div class="name">Menu 3 pilons 🔥</div>
-            <div class="desc">3 pilons • 1 accompagnement • 1 boisson 33cl</div>
+            <div class="desc">3 pilons au choix • 1 accompagnement au choix • 1 boisson 33cl au choix 🥤</div>
           </div>
           <div class="price">9,50€</div>
         </div>
         <div class="item">
           <div>
             <div class="name">Menu poulet entier 🍗</div>
-            <div class="desc">1 poulet • 1 accompagnement • 1 boisson 33cl</div>
+            <div class="desc">1 poulet au choix • 1 accompagnement au choix • 1 boisson 33cl au choix 🥤</div>
           </div>
           <div class="price">15€</div>
         </div>
         <div class="item">
           <div>
             <div class="name">Chicken Party 🎉</div>
-            <div class="desc">Assortiment wings/pilons/tenders • 3 accompagnements • 2 bouteilles 1,5 L</div>
+            <div class="desc">Assortiment (3 lots d'ailes, 10 pilons, 15 tenders) • 3 accompagnements • 2 bouteilles 1,5 L 🥤</div>
           </div>
           <div class="price">50€</div>
         </div>
@@ -228,14 +256,14 @@
       <div class="grid cols-2">
         <div class="card">
           <div class="item"><div><div class="name">Ailes mariné (à l’unité) 🪽</div><div class="desc">Idéales pour grignoter</div></div><div class="price">0,70€</div></div>
-          <div class="item"><div><div class="name">Ailes mariné (lot de 3)</div><div class="desc">Petit combo malin</div></div><div class="price">2€</div></div>
+          <div class="item"><div><div class="name">Ailes mariné (lot de 3) 🪽🪽🪽</div><div class="desc">Petit combo malin</div></div><div class="price">2€</div></div>
           <div class="item"><div><div class="name">Pilon mariné 🧄</div><div class="desc">Marinade maison parfumée</div></div><div class="price">2€</div></div>
           <div class="item"><div><div class="name">Pilon chapelure bretzel 🥨</div><div class="desc">Ultra croustillant</div></div><div class="price">2,30€</div></div>
+          <!-- Pilon chapelure normal supprimé -->
           <div class="item"><div><div class="name">Pilon piment 🌶️</div><div class="desc">Pour les amateurs d’épicé</div></div><div class="price">2,30€</div></div>
         </div>
-
         <div class="card">
-          <div class="item"><div><div class="name">Tenders chapelure bretzel (à l'unité)</div><div class="desc">Moelleux & croustillant</div></div><div class="price">1,50€</div></div>
+          <div class="item"><div><div class="name">Tenders chapelure bretzel (à l'unité) 🍗</div><div class="desc">Moelleux & crousillant</div></div><div class="price">1,50€</div></div>
           <div class="item"><div><div class="name">Cuisse mariné 🍗</div><div class="desc">Juteuse & fondante</div></div><div class="price">3,50€</div></div>
           <div class="item"><div><div class="name">Poulet entier 🍗🍗</div><div class="desc">À partager en famille</div></div><div class="price">11€</div></div>
           <div class="item"><div><div class="name">Poulet entier citron 🍋</div><div class="desc">Zeste & fraîcheur</div></div><div class="price">12,50€</div></div>
@@ -243,44 +271,46 @@
       </div>
     </section>
 
-    <!-- ACCOMPAGNEMENTS / SOFT / DESSERTS -->
+    <!-- ACCOMPAGNEMENTS + DESSERTS (GRILLE PROPRE) -->
     <section>
       <div class="grid cols-3">
-
-        <!-- ACCOMPAGNEMENTS -->
         <div class="card">
           <h3 class="section-title" style="margin-top:0">🥗 Accompagnements</h3>
-          <div class="item"><div class="name">Riz 🍚</div><div class="price">3€</div></div>
+          <div class="item"><div class="name">Barquette de riz 🍚</div><div class="price">3€</div></div>
           <div class="item"><div class="name">Pommes de terre sautées 🥔</div><div class="price">3€</div></div>
           <div class="item"><div class="name">Crudités 🥗</div><div class="price">3€</div></div>
           <div class="item"><div class="name">Frites 🍟</div><div class="price">3€</div></div>
         </div>
 
-        <!-- DESSERTS -->
         <div class="card">
           <h3 class="section-title" style="margin-top:0">🍰 Desserts</h3>
           <div class="item"><div class="name">Tiramisu 🍮</div><div class="price">2,50€</div></div>
         </div>
+      </div>
+    </section>
 
-        <!-- 🔥 BOISSONS SOFT (NOUVELLE VERSION) -->
-        <div class="card">
-          <h3 class="section-title" style="margin-top:0">🥤 Boissons soft</h3>
-
-          <div class="item"><div class="name">Coca-Cola 33cl</div><div class="price">1,80€</div></div>
-          <div class="item"><div class="name">Coca Zéro 33cl</div><div class="price">1,80€</div></div>
-          <div class="item"><div class="name">Fanta 33cl</div><div class="price">1,80€</div></div>
-          <div class="item"><div class="name">Sprite 33cl</div><div class="price">1,80€</div></div>
-          <div class="item"><div class="name">Ice Tea 33cl</div><div class="price">1,80€</div></div>
-          <div class="item"><div class="name">Oasis 33cl</div><div class="price">1,80€</div></div>
-          <div class="item"><div class="name">Eau 50cl</div><div class="price">1,80€</div></div>
-
-          <div class="item"><div class="name">Red Bull 25cl</div><div class="price">2,50€</div></div>
-
-          <div class="desc" style="margin-top:8px; color:var(--muted); font-size:.95rem;">
-            Autres goûts selon disponibilité.
+    <!-- BOISSONS SOFT SUR SA PROPRE LIGNE (évite le décalage) -->
+    <section>
+      <h3 class="section-title">🥤 Boissons soft</h3>
+      <div class="card">
+        <div class="grid cols-2">
+          <div>
+            <div class="item"><div class="name">Coca-Cola 33cl</div><div class="price">1,80€</div></div>
+            <div class="item"><div class="name">Coca Zéro 33cl</div><div class="price">1,80€</div></div>
+            <div class="item"><div class="name">Fanta 33cl</div><div class="price">1,80€</div></div>
+            <div class="item"><div class="name">Sprite 33cl</div><div class="price">1,80€</div></div>
+          </div>
+          <div>
+            <div class="item"><div class="name">Ice Tea 33cl</div><div class="price">1,80€</div></div>
+            <div class="item"><div class="name">Oasis 33cl</div><div class="price">1,80€</div></div>
+            <div class="item"><div class="name">Eau 50cl</div><div class="price">1,80€</div></div>
+            <div class="item"><div class="name">Red Bull 25cl</div><div class="price">2,50€</div></div>
           </div>
         </div>
 
+        <div class="desc" style="margin-top:8px; color:var(--muted); font-size:.95rem;">
+          Autres goûts selon disponibilité.
+        </div>
       </div>
     </section>
 
@@ -291,7 +321,7 @@
         <div class="item">
           <div>
             <div class="name">Surprise du Chef</div>
-            <div class="desc">Personnalisez ce bloc avec votre promo 🎁</div>
+            <div class="desc">Personnalisez ce bloc avec votre promo actuelle 🎁</div>
           </div>
           <div class="price">?€</div>
         </div>
@@ -316,7 +346,7 @@
             <tr><td style="padding:10px;">Mercredi</td><td style="padding:10px;">..........</td><td style="padding:10px;">........</td></tr>
             <tr><td style="padding:10px;">Jeudi</td><td style="padding:10px;">...........</td><td style="padding:10px;"></td></tr>
             <tr><td style="padding:10px;">Vendredi</td><td style="padding:10px;">........</td><td style="padding:10px;"></td></tr>
-            <tr><td style="padding:10px;">Samedi</td><td style="padding:10px;">.........</td><td style="padding:10px;">........</td></tr>
+            <tr><td style="padding:10px;">Samedi</td><td style="padding:10px;">.........;</td><td style="padding:10px;">........</td></tr>
             <tr><td style="padding:10px;">Dimanche</td><td style="padding:10px;">........</td><td style="padding:10px;">—</td></tr>
           </tbody>
         </table>
@@ -342,11 +372,10 @@
           <span class="allergen-badge" title="Moutarde">MOU</span>
           <span class="allergen-badge" title="Graines de sésame">SES</span>
           <span class="allergen-badge" title="Sulfites">SUL</span>
-          <span class="allergen-badge" title="Lupin">LUP</span>
+          <span class="allergen-badge" title="Lupin">LUP</span>         
         </div>
       </div>
     </section>
-
   </main>
 
   <!-- PARTENAIRES -->
@@ -354,35 +383,90 @@
     <h3 class="section-title">🤝 Partenaires</h3>
     <div class="card">
       <div class="logos-partners">
-        <a href="https://www.facebook.com/fcoostwald" target="_blank"><img src="logofcoswald.png" class="logo-partenaire"></a>
-        <a href="https://www.bge.asso.fr" target="_blank"><img src="bge.png" class="logo-partenaire"></a>
-        <a href="https://www.instagram.com/graphigoat/" target="_blank"><img src="graphi-goat.png" class="logo-partenaire"></a>
-        <a href="https://adam-boissons.fr" target="_blank"><img src="adam-boissons.jpg" class="logo-partenaire"></a>
-        <a href="https://www.facebook.com/lartde.laviande.1/" target="_blank"><img src="oip.jpg" class="logo-partenaire"></a>
+        <a href="https://www.facebook.com/fcoostwald" target="_blank" rel="noopener noreferrer">
+          <img src="logofcoswald.png" alt="FC Ostwald" class="logo-partenaire" loading="lazy">
+        </a>
+        <a href="https://www.bge.asso.fr" target="_blank" rel="noopener noreferrer">
+          <img src="bge.png" alt="BGE" class="logo-partenaire" loading="lazy">
+        </a>
+        <a href="https://www.instagram.com/graphigoat/" target="_blank" rel="noopener noreferrer">
+          <img src="graphi-goat.png" alt="GraphiGoat" class="logo-partenaire" loading="lazy">
+        </a>
+        <a href="https://adam-boissons.fr" target="_blank" rel="noopener noreferrer">
+          <img src="adam-boissons.jpg" alt="Adam Boissons" class="logo-partenaire" loading="lazy">
+        </a>
+        <a href="https://www.facebook.com/lartde.laviande.1/" target="_blank" rel="noopener noreferrer">
+          <img src="oip.jpg" alt="Art de la Viande" class="logo-partenaire" loading="lazy">
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- ÉVÉNEMENTS -->
+  <!-- ÉVÉNEMENTS (cible du menu) -->
   <section id="evenements" class="event-banner">
     <div class="event-content">
       <h2>🍗 Événements & Fêtes Privées 🎉</h2>
-      <p>Anniversaire, baptême, mariage, entreprise ou soirée entre amis…<br>
-      Le food truck <strong>Chicken Bar</strong> s’invite à vos événements !</p>
+      <p>Anniversaire, baptême, mariage, entreprise ou soirée entre amis… <br>
+      Le food truck <strong>Chicken Bar</strong> s’invite à vos événements avec du poulet sous toutes ses formes !</p>
     </div>
   </section>
 
   <footer>
     <div class="wrap">
-      <div>© <span id="y"></span> Chicken Bar — SIREN : 992 441 504</div>
+      <div>© <span id="y"></span> Chicken Bar — Tous droits réservés. SIREN : 992 441 504</div>
       <div style="margin-top:6px">Contact : <a href="tel:+33632028114">06 32 02 81 14</a> ·
-        <a href="mailto:chickenbar67@gmail.com">chickenbar67@gmail.com</a></div>
+        <a href="mailto:chickenbar67@gmail.com">chickenbar67@gmail.com .TVA non applicable</a></div>
     </div>
   </footer>
 
-  <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
-  </script>
+  <!-- Bouton retour en haut -->
+  <button id="toTop" class="to-top" aria-label="Revenir en haut" title="Haut de page" style="display:none">⬆️ Haut</button>
 
+  <script>
+    // Année dynamique
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Ajuste le padding-top selon la hauteur du header
+    const header = document.getElementById('siteHeader');
+    const setHeaderPad = () => {
+      document.documentElement.style.setProperty('--header-pad', header.offsetHeight + 'px');
+    };
+    window.addEventListener('resize', setHeaderPad);
+    window.addEventListener('load', setHeaderPad);
+    setHeaderPad();
+
+    // Header compact au scroll + bouton top
+    const toTop = document.getElementById('toTop');
+    function onScroll(){
+      if (window.scrollY > 8) header.classList.add('compact'); else header.classList.remove('compact');
+      if (window.scrollY > 450) toTop.style.display='inline-flex'; else toTop.style.display='none';
+    }
+    onScroll();
+    window.addEventListener('scroll', onScroll, {passive:true});
+    toTop.addEventListener('click', ()=>window.scrollTo({top:0, behavior:'smooth'}));
+
+    // Scroll ancre compensé (iPhone/Safari OK)
+    (function() {
+      function scrollToHash(hash) {
+        const el = document.querySelector(hash);
+        if (!el) return;
+        const y = el.getBoundingClientRect().top + window.pageYOffset - (header?.offsetHeight || 0) - 12;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+      document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', function(e) {
+          const hash = this.getAttribute('href');
+          if (hash.length > 1) {
+            e.preventDefault();
+            history.pushState(null, '', hash);
+            scrollToHash(hash);
+          }
+        });
+      });
+      window.addEventListener('load', () => {
+        if (location.hash) setTimeout(() => scrollToHash(location.hash), 50);
+      });
+    })();
+  </script>
 </body>
 </html>
